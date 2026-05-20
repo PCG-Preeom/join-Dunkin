@@ -7,6 +7,7 @@ const URLS = [
   `https://recruitingbypaycor.com/career/jobBoardAtom.action?clientId=${CLIENT_ID}`,
   `https://recruitingbypaycor.com/career/atom.action?clientId=${CLIENT_ID}`,
   `https://recruitingbypaycor.com/career/iframe.action?clientId=${CLIENT_ID}`,
+  `https://recruitingbypaycor.com/career/jobBoard.action?clientId=${CLIENT_ID}`,
 ];
 
 function fetchUrl(url) {
@@ -127,6 +128,8 @@ exports.handler = async function (event) {
     try {
       const { status, body } = await fetchUrl(url);
 
+      if (status !== 200) { errors.push(`${url} → ${status}`); continue; }
+
       if (debug) {
         return {
           statusCode: 200,
@@ -134,8 +137,6 @@ exports.handler = async function (event) {
           body: `URL: ${url}\nStatus: ${status}\n\nFirst 4000 chars:\n${body.slice(0, 4000)}`,
         };
       }
-
-      if (status !== 200) { errors.push(`${url} → ${status}`); continue; }
 
       const isAtom = body.includes('<entry') || body.includes('<feed');
       const jobs   = isAtom ? parseAtom(body) : parseHtml(body);
