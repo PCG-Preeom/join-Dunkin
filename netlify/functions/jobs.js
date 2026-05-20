@@ -61,39 +61,45 @@ function parseAtom(xml) {
   return jobs;
 }
 
-// Parse gnewton CareerHome HTML page
+// Parse gnewton CareerHome HTML page (handles both table and div-group layouts)
 function parseHtml(html) {
   const jobs = [];
-  let currentDept = 'Open Position';
-  const parts = [];
 
-  // Department headers: <div class="gnewtonCareerGroupHeaderClass">Customer Service</div>
+  // --- Table layout: <td class="gnewtonJobLink"><a href="...">Title</a></td> <td class="gnewtonJobLocation">...</td>
+  const rowRe = /<td[^>]*class="gnewtonJobLink"[^>]*>\s*<a\s+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>[\s\S]*?<\/td>\s*<td[^>]*class="gnewtonJobLocation"[^>]*>([\s\S]*?)<\/td>/gi;
+  let m;
+  while ((m = rowRe.exec(html)) !== null) {
+    const title = decode(m[2]);
+    const location = decode(m[3]).replace(/\s+/g, ' ').trim();
+    if (title) jobs.push({ title, link: m[1], category: 'Open Position', location });
+  }
+
+  if (jobs.length > 0) return jobs;
+
+  // --- Div-group layout: <div class="gnewtonCareerGroupJobTitleClass"><a href="...">
+  const parts = [];
   const deptRe = /<div[^>]*class="gnewtonCareerGroupHeaderClass[^"]*"[^>]*>([\s\S]*?)<\/div>/gi;
   let d;
   while ((d = deptRe.exec(html)) !== null) {
     const text = decode(d[1]);
     if (text) parts.push({ type: 'dept', index: d.index, text });
   }
-
-  // Job titles: <div class="gnewtonCareerGroupJobTitleClass"><a href="...">Title</a>
   const jobRe = /<div[^>]*class="gnewtonCareerGroupJobTitleClass[^"]*"[^>]*>\s*<a\s+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi;
   let j;
   while ((j = jobRe.exec(html)) !== null) {
     const title = decode(j[2]);
     if (title) parts.push({ type: 'job', index: j.index, link: j[1], title, endIndex: j.index + j[0].length });
   }
-
   parts.sort((a, b) => a.index - b.index);
-
+  let currentDept = 'Open Position';
   parts.forEach(p => {
     if (p.type === 'dept') {
       currentDept = p.text;
     } else if (p.type === 'job') {
-      // Grab the description div that follows (contains address/location)
       const snippet = html.slice(p.endIndex, p.endIndex + 600);
       const locM = snippet.match(/<div[^>]*class="gnewtonCareerGroupJobDescriptionClass[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
-      const location = locM ? decode(locM[1]) : '';
-      jobs.push({ title: p.title, link: p.link, category: currentDept, location: location.replace(/\s+/g, ' ').trim() });
+      const location = locM ? decode(locM[1]).replace(/\s+/g, ' ').trim() : '';
+      jobs.push({ title: p.title, link: p.link, category: currentDept, location });
     }
   });
 
