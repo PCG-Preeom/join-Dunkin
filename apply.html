@@ -161,6 +161,39 @@
       box-shadow: 0 8px 40px rgba(255,103,31,0.08), 0 2px 12px rgba(0,0,0,0.06);
     }
 
+    /* ── LOADING OVERLAY ── */
+    .iframe-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      min-height: 300px;
+      color: #aaa;
+      font-size: .95rem;
+      font-weight: 700;
+    }
+
+    .iframe-loading-dots {
+      display: flex;
+      gap: .4rem;
+    }
+
+    .iframe-loading-dots span {
+      width: 10px; height: 10px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      border-radius: 50%;
+      animation: dotBounce .9s ease-in-out infinite;
+    }
+
+    .iframe-loading-dots span:nth-child(2) { animation-delay: .15s; }
+    .iframe-loading-dots span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes dotBounce {
+      0%, 80%, 100% { transform: scale(.6); opacity: .4; }
+      40%            { transform: scale(1);  opacity: 1; }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--light);
@@ -200,7 +233,14 @@
 
   <!-- PAYCOR IFRAME -->
   <section class="jobs-section">
-    <div class="jobs-iframe-wrap" id="paycorContainer"></div>
+    <div class="jobs-iframe-wrap" id="paycorContainer">
+      <div class="iframe-loading" id="iframeLoading">
+        <div class="iframe-loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+        Loading your application…
+      </div>
+    </div>
   </section>
 
   <script>
@@ -230,6 +270,19 @@
     s.type = "text/javascript";
     s.src = src;
     document.getElementById("paycorContainer").appendChild(s);
+
+    // Hide the loading dots once the Paycor iframe is injected and loaded
+    const observer = new MutationObserver(() => {
+      const iframe = document.getElementById("gnewtonIframe");
+      if (iframe) {
+        observer.disconnect();
+        iframe.addEventListener("load", () => {
+          const loader = document.getElementById("iframeLoading");
+          if (loader) loader.style.display = "none";
+        });
+      }
+    });
+    observer.observe(document.getElementById("paycorContainer"), { childList: true, subtree: true });
   </script>
 
   <!-- FOOTER -->

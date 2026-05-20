@@ -485,6 +485,11 @@
       vertical-align: middle;
     }
 
+    @keyframes bubbleFade {
+      from { opacity: 0; transform: scale(.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
     .jobs-bubble {
       display: inline-flex;
       align-items: center;
@@ -497,6 +502,7 @@
       margin-left: .6rem;
       vertical-align: middle;
       white-space: nowrap;
+      animation: bubbleFade .3s ease;
     }
 
     .addr-jobs-bubble {
@@ -512,6 +518,7 @@
       vertical-align: middle;
       white-space: nowrap;
       border: 1px solid rgba(255,103,31,0.25);
+      animation: bubbleFade .3s ease;
     }
 
     .address-job-list {
@@ -1089,6 +1096,10 @@
 
     let liveJobs = [];
 
+    function toTitleCase(str) {
+      return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    }
+
     const locationsGrid  = document.getElementById("locationsGrid");
     const searchInput    = document.getElementById("locationSearch");
     const radiusOptions  = document.getElementById("radiusOptions");
@@ -1216,7 +1227,7 @@
                 const jobItems = addrJobs.map(j => {
                   const idMatch = j.link.match(/[?&]id=([^&]+)/);
                   const href = idMatch ? `apply.html?gnk=job&gni=${idMatch[1]}` : 'apply.html';
-                  return `<a class="address-job-link" href="${href}">${j.title}<span>Apply →</span></a>`;
+                  return `<a class="address-job-link" href="${href}">${toTitleCase(j.title)}<span>Apply →</span></a>`;
                 }).join('');
                 return `
                 <div class="address-row address-row-toggle">
@@ -1364,7 +1375,7 @@
               return `
               <div class="job-card">
                 <div class="job-info">
-                  <div class="job-title">${job.title}</div>
+                  <div class="job-title">${toTitleCase(job.title)}</div>
                   ${job.location ? `<div class="job-location">📍 ${job.location}</div>` : ''}
                 </div>
                 <a href="${applyHref}" class="job-apply-btn">Apply Now</a>
