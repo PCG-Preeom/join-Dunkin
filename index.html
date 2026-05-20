@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>People Capital Group | Careers</title>
+  <link rel="icon" href="icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF671F;
+      --pink:   #DA1884;
+      --dark:   #1D1D1B;
+      --light:  #FFF8F2;
+      --peach:  #FFE8D6;
+      --gray:   #F9F4F0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fff;
+      color: var(--dark);
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      box-shadow: 0 2px 16px rgba(255,103,31,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nav-logo span { color: var(--dark); font-size: 1.1rem; font-weight: 800; }
+    .nav-logo span em { color: var(--orange); font-style: normal; }
+
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+
+    nav a.nav-link {
+      color: #555;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+
+    nav a.nav-link:hover { color: var(--orange); }
+
+    nav a.nav-btn {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .5rem 1.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: opacity .2s;
+      box-shadow: 0 4px 12px rgba(255,103,31,0.3);
+    }
+
+    nav a.nav-btn:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 2rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px;
+      padding: .35rem 1.1rem;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: .9;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .hero-cta {
+      display: inline-block;
+      background: #fff;
+      color: var(--orange);
+      font-weight: 800;
+      font-size: 1rem;
+      padding: .85rem 2.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    }
+
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+
+    .hero-cta-ghost {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.5);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: .85rem 2.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background .15s;
+    }
+
+    .hero-cta-ghost:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── WAVE ── */
+    .wave {
+      background: var(--light);
+      line-height: 0;
+      margin-top: -1px;
+    }
+
+    .wave svg { display: block; width: 100%; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--light);
+      padding: 0 2rem 2.5rem;
+    }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: .3rem;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: var(--peach);
+      align-self: stretch;
+    }
+
+    /* ── SHARED SECTION LAYOUT ── */
+    .section-label {
+      text-align: center;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 900;
+      margin-bottom: 2.5rem;
+      color: var(--dark);
+    }
+
+    /* ── BENEFITS ── */
+    .benefits {
+      background: var(--light);
+      padding: 1rem 2rem 4rem;
+    }
+
+    .benefits-inner { max-width: 1100px; margin: 0 auto; }
+    .benefits .section-label { color: var(--orange); }
+    .benefits .section-title { color: var(--dark); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .benefit-card {
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .benefit-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+
+    .benefit-card.c1 { background: linear-gradient(135deg, #FF671F, #ff9a5c); }
+    .benefit-card.c2 { background: linear-gradient(135deg, #DA1884, #f06bba); }
+    .benefit-card.c3 { background: linear-gradient(135deg, #FF4A4A, #ff8a8a); }
+    .benefit-card.c4 { background: linear-gradient(135deg, #FF671F, #DA1884); }
+    .benefit-card.c5 { background: linear-gradient(135deg, #c9006b, #DA1884); }
+
+    .benefit-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+    .benefit-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: .4rem; color: #fff; }
+    .benefit-card p { font-size: .85rem; color: rgba(255,255,255,.85); line-height: 1.5; }
+
+    /* ── JOBS ── */
+    .jobs {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .pos-card.bottom-center { grid-column: 2; }
+
+    .pos-card {
+      border-radius: 18px;
+      padding: 1.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: transform .2s, box-shadow .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pos-card::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .pos-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+
+    .pos-card.p1 { background: linear-gradient(135deg, #fff5f0, #ffe8d6); border: 2px solid #ffc4a0; }
+    .pos-card.p2 { background: linear-gradient(135deg, #fff0f8, #ffd6ef); border: 2px solid #ffaad9; }
+    .pos-card.p3 { background: linear-gradient(135deg, #fff0f5, #ffe0ec); border: 2px solid #ffb3cc; }
+    .pos-card.p4 { background: linear-gradient(135deg, #fff5f0, #ffddd0); border: 2px solid #ffb399; }
+
+    .pos-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    }
+
+    .pos-info h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: .3rem; color: var(--dark); }
+    .pos-info p  { font-size: .83rem; color: #555; line-height: 1.4; }
+
+    /* ── LOCATIONS ── */
+    .locations {
+      background: linear-gradient(180deg, #FFF8F0 0%, #fff 100%);
+      padding: 4rem 2rem;
+    }
+
+    .locations-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ── SEARCH BOX ── */
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .search-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      pointer-events: none;
+      font-size: 1rem;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: .9rem 1.4rem .9rem 2.8rem;
+      border-radius: 999px;
+      border: 2px solid #eee;
+      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      background: var(--gray);
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(255,103,31,0.1);
+      background: #fff;
+    }
+
+    /* ── RADIUS SEARCH ── */
+    .radius-options {
+      display: flex;
+      gap: .6rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: .6rem;
+      margin-bottom: .4rem;
+      animation: fadeSlide .2s ease;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .radius-hint {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .radius-options select {
+      padding: .6rem 1rem;
+      border-radius: 999px;
+      border: 2px solid #eee;
+      font-family: 'Nunito', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      background: var(--gray);
+      color: var(--dark);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .radius-options select:focus { border-color: var(--orange); }
+
+    #radiusBtn {
+      padding: .75rem 1.4rem;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .9rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+
+    #radiusBtn:hover { opacity: .85; }
+    #radiusBtn:disabled { opacity: .5; cursor: default; }
+
+    #radiusClear {
+      padding: .75rem 1.1rem;
+      background: #eee;
+      color: #666;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    #radiusClear:hover { background: #ddd; }
+
+    .radius-status {
+      text-align: center;
+      font-size: .85rem;
+      font-weight: 600;
+      color: #888;
+      margin-bottom: 1rem;
+      min-height: 1.2em;
+    }
+
+    .distance-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-left: .5rem;
+      vertical-align: middle;
+    }
+
+    /* ── ACCORDION ── */
+    .locations-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .no-results { text-align: center; color: #999; font-weight: 600; padding: 2rem; grid-column: 1 / -1; }
+
+    .city-group {
+      background: #fff;
+      border-radius: 14px;
+      border: 2px solid #eee;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .city-group:hover { border-color: #ffc7a8; box-shadow: 0 4px 16px rgba(255,103,31,.08); }
+
+    .city-group.open {
+      grid-column: 1 / -1;
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,103,31,.12);
+    }
+
+    .city-group.open .city-header {
+      background: linear-gradient(135deg, #FFF0E8, #FFE8F5);
+    }
+
+    .city-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background .2s;
+    }
+
+    .city-header-left { display: flex; align-items: center; gap: .75rem; }
+
+    .city-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .city-name { font-weight: 800; font-size: 1rem; color: var(--dark); }
+
+    .city-count {
+      background: #FFF0E8;
+      color: var(--orange);
+      font-size: .75rem;
+      font-weight: 800;
+      padding: .2rem .65rem;
+      border-radius: 999px;
+    }
+
+    .city-chevron {
+      font-size: .9rem;
+      color: #aaa;
+      transition: transform .25s;
+    }
+
+    .city-group.open .city-chevron { transform: rotate(180deg); }
+
+    .city-addresses {
+      display: none;
+      border-top: 2px solid #f0f0f0;
+      padding: .5rem 0;
+    }
+
+    .city-group.open .city-addresses { display: block; }
+
+    .address-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .6rem 1.4rem;
+      gap: 1rem;
+      border-bottom: 1px solid #f8f8f8;
+      transition: background .15s, transform .15s;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .address-row:last-child { border-bottom: none; }
+
+    .address-row:hover {
+      background: #FFF0E8;
+      transform: translateX(4px);
+    }
+
+    .address-row:hover .address-street { color: var(--orange); }
+
+    .address-row:hover .address-arrow { opacity: 1; }
+
+    .address-street { font-size: .88rem; color: #444; font-weight: 600; transition: color .15s; }
+
+    .address-arrow {
+      font-size: .8rem;
+      color: var(--orange);
+      opacity: 0;
+      transition: opacity .15s;
+      flex-shrink: 0;
+    }
+
+    .address-zip {
+      font-size: .8rem;
+      color: #aaa;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--gray);
+      padding: .2rem .6rem;
+      border-radius: 999px;
+    }
+
+    /* ── LIVE JOBS ── */
+    .live-jobs {
+      padding: 4rem 2rem;
+      background: #fff;
+    }
+
+    .live-jobs-inner { max-width: 1100px; margin: 0 auto; }
+
+    .job-dept-group { margin-bottom: 2.5rem; }
+
+    .job-dept-header {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border-left: 4px solid var(--orange);
+      padding: 8px 14px;
+      background: #FFF5F0;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1rem;
+    }
+
+    .job-card {
+      background: #fff;
+      border: 2px solid var(--peach);
+      border-radius: 14px;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: .75rem;
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+    }
+
+    .job-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(255,103,31,.1);
+      transform: translateY(-2px);
+    }
+
+    .job-title {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: .2rem;
+    }
+
+    .job-location {
+      font-size: .82rem;
+      color: #999;
+      font-weight: 600;
+    }
+
+    .job-apply-btn {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .55rem 1.3rem;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(255,103,31,.25);
+      transition: opacity .2s, transform .15s;
+    }
+
+    .job-apply-btn:hover { opacity: .85; transform: translateY(-1px); }
+
+    .jobs-loading {
+      text-align: center;
+      padding: 3rem;
+      color: #aaa;
+    }
+
+    .loading-dots {
+      display: flex;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: 1rem;
+    }
+
+    .loading-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: ldBounce .7s infinite alternate;
+    }
+
+    .loading-dots span:nth-child(2) { animation-delay: .15s; background: var(--pink); }
+    .loading-dots span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes ldBounce {
+      from { transform: translateY(0); opacity: .4; }
+      to   { transform: translateY(-10px); opacity: 1; }
+    }
+
+    .jobs-error {
+      text-align: center;
+      padding: 2rem;
+      color: #bbb;
+      font-weight: 600;
+    }
+
+    /* ── APPLY CTA ── */
+    .apply-cta {
+      padding: 3.5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .apply-cta-inner {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: #fff;
+      text-align: center;
+      border-radius: 24px;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .apply-cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -40px; left: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .apply-cta-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .apply-cta-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 900;
+      margin-bottom: .75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .apply-cta-inner p {
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      color: rgba(255,255,255,.85);
+      font-size: 1rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light);
+      border-top: 2px solid var(--peach);
+      color: #888;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .jobs-grid { grid-template-columns: 1fr; }
+      .pos-card.bottom-center { grid-column: 1; }
+      .stat-divider { display: none; }
+      .stats-inner { gap: 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3.5rem 1.2rem 4rem; }
+      .nav-links .nav-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon"><img src="icon-512.png" alt="PCG" /></div>
+      <span>People Capital <em>Group</em></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#jobs">Positions</a>
+      <a class="nav-link" href="#locations">Locations</a>
+      <a class="nav-btn" href="apply.html">Apply Now</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Now Hiring</div>
+      <h1>Join Our Team</h1>
+      <p>We're hiring friendly, motivated people across our Dunkin' locations in PA & NJ. Build your future with flexible schedules, great pay, and a team that feels like family.</p>
+      <div class="hero-buttons">
+        <a href="#jobs" class="hero-cta">View Open Roles</a>
+        <a href="#locations" class="hero-cta-ghost">See Locations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAVE DIVIDER -->
+  <div class="wave">
+    <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path fill="#FF671F" d="M0,0 C360,70 1080,0 1440,60 L1440,0 Z" opacity="0.15"/>
+      <path fill="#FFF8F2" d="M0,35 C480,70 960,20 1440,50 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-number">45</div>
+        <div class="stat-label">Locations</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Open Roles</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">PA &amp; NJ</div>
+        <div class="stat-label">We Operate In</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">Now</div>
+        <div class="stat-label">Hiring</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="benefits-inner">
+      <div class="section-label">Why Work Here</div>
+      <h2 class="section-title">More Than Just a Job</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card c1">
+          <div class="benefit-icon">💰</div>
+          <h3>Competitive Pay</h3>
+          <p>We offer competitive hourly wages with regular performance reviews.</p>
+        </div>
+        <div class="benefit-card c2">
+          <div class="benefit-icon">📅</div>
+          <h3>Flexible Schedules</h3>
+          <p>Morning, afternoon, evening, and weekend shifts available to fit your life.</p>
+        </div>
+        <div class="benefit-card c3">
+          <div class="benefit-icon">☕</div>
+          <h3>Free Coffee</h3>
+          <p>Enjoy free Dunkin' beverages and food discounts while on shift — a perk of working with us.</p>
+        </div>
+        <div class="benefit-card c4">
+          <div class="benefit-icon">📈</div>
+          <h3>Growth Opportunities</h3>
+          <p>Start as crew and grow into leadership. We promote from within.</p>
+        </div>
+        <div class="benefit-card c5">
+          <div class="benefit-icon">🤝</div>
+          <h3>Training Provided</h3>
+          <p>No experience needed — we train you for success from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOBS -->
+  <section class="jobs" id="jobs">
+    <div class="section-label">Positions Available</div>
+    <h2 class="section-title">Find Your Role</h2>
+    <div class="jobs-grid">
+      <div class="pos-card p1">
+        <div class="pos-icon">☕</div>
+        <div class="pos-info">
+          <h3>Crew Member</h3>
+          <p>Help guests, prepare food and drinks, and bring great energy every shift.</p>
+        </div>
+      </div>
+      <div class="pos-card p2">
+        <div class="pos-icon">⭐</div>
+        <div class="pos-info">
+          <h3>Shift Leader</h3>
+          <p>Support the team, lead shifts, and deliver excellent guest service.</p>
+        </div>
+      </div>
+      <div class="pos-card p3">
+        <div class="pos-icon">🏆</div>
+        <div class="pos-info">
+          <h3>Assistant Manager</h3>
+          <p>Help manage daily operations, coach team members, and drive performance.</p>
+        </div>
+      </div>
+      <div class="pos-card p4 bottom-center">
+        <div class="pos-icon">🎯</div>
+        <div class="pos-info">
+          <h3>Restaurant Manager</h3>
+          <p>Lead the store, develop your team, and manage full operations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="locations" id="locations">
+    <div class="locations-inner">
+      <div class="section-label">Where We Are</div>
+      <h2 class="section-title">Our Locations</h2>
+      <div class="search-box">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="locationSearch" placeholder="Search by city, street, or ZIP..." />
+        </div>
+      </div>
+      <div class="radius-options" id="radiusOptions" style="display:none">
+        <span class="radius-hint">📍 ZIP detected —</span>
+        <select id="radiusSelect">
+          <option value="5">Within 5 miles</option>
+          <option value="10" selected>Within 10 miles</option>
+          <option value="15">Within 15 miles</option>
+          <option value="25">Within 25 miles</option>
+          <option value="50">Within 50 miles</option>
+        </select>
+        <button id="radiusBtn">Find Nearby</button>
+        <button id="radiusClear" style="display:none">✕ Clear</button>
+      </div>
+      <p id="radiusStatus" class="radius-status"></p>
+      <div class="locations-grid" id="locationsGrid" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));"></div>
+    </div>
+  </section>
+
+  <!-- LIVE JOBS -->
+  <section class="live-jobs" id="open-positions">
+    <div class="live-jobs-inner">
+      <div class="section-label">Now Hiring</div>
+      <h2 class="section-title">Open Positions</h2>
+      <div id="jobsContainer">
+        <div class="jobs-loading">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <p>Loading open positions…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY CTA -->
+  <section class="apply-cta">
+    <div class="apply-cta-inner">
+      <h2>Ready to Apply?</h2>
+      <p>Click below to view all open positions and submit your application through our recruiting system.</p>
+      <a href="apply.html" class="hero-cta">Apply Now</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
+    <p style="margin-top: .4rem; font-size: .8rem; color: #666;">This site is for employment opportunities at People Capital Group's independently owned Dunkin' locations.</p>
+    <p style="margin-top: .4rem; font-size: .85rem;">Questions? <a href="mailto:careers@peoplecapitalgroup.com" style="color: var(--orange); font-weight: 700; text-decoration: none;">careers@peoplecapitalgroup.com</a></p>
+  </footer>
+
+  <script>
+    const locations = [
+      { address: "1630 W Wadsworth Ave, Philadelphia, PA 19150",      lat: 40.0695, lng: -75.1753 },
+      { address: "6190 North Front Street, Philadelphia, PA 19120",    lat: 40.0325, lng: -75.1286 },
+      { address: "15 Bustleton Pike, Feasterville, PA 19053",          lat: 40.1453, lng: -75.0114 },
+      { address: "1069 W County Line Rd, Warminster, PA 18974",        lat: 40.1951, lng: -75.1012 },
+      { address: "2112 County Line Rd, Huntingdon Valley, PA 19006",   lat: 40.1205, lng: -75.0726 },
+      { address: "110 E Street Rd, Feasterville, PA 19053",            lat: 40.1539, lng: -75.0156 },
+      { address: "1050 Stony Hill Rd, Yardley, PA 19067",              lat: 40.2454, lng: -74.8593 },
+      { address: "334 Easton Rd, Warrington, PA 18976",                lat: 40.2509, lng: -75.1348 },
+      { address: "5060 Township Line Rd, Drexel Hill, PA 19026",       lat: 39.9476, lng: -75.3012 },
+      { address: "1100 Chester Pike, Sharon Hill, PA 19079",           lat: 39.9037, lng: -75.2738 },
+      { address: "23 E. Baltimore Avenue, Lansdowne, PA 19050",        lat: 39.9387, lng: -75.2724 },
+      { address: "5 Macdade Boulevard, Collingdale, PA 19023",         lat: 39.9137, lng: -75.2786 },
+      { address: "901 Market Street, Gallery Mall, Philadelphia, PA 19107", lat: 39.9521, lng: -75.1596 },
+      { address: "7000 Chester Ave, Philadelphia, PA 19142",           lat: 39.9287, lng: -75.2287 },
+      { address: "2654 S. 18th St, Philadelphia, PA 19145",            lat: 39.9265, lng: -75.1765 },
+      { address: "2640 S. Carlisle St, Philadelphia, PA 19145",        lat: 39.9267, lng: -75.1743 },
+      { address: "7601 Lindbergh Blvd, Philadelphia, PA 19153",        lat: 39.8976, lng: -75.2371 },
+      { address: "4017 N 5th St, Philadelphia, PA 19140",              lat: 40.0006, lng: -75.1437 },
+      { address: "221 W Hunting Park Ave, Philadelphia, PA 19140",     lat: 40.0106, lng: -75.1598 },
+      { address: "532 W Lehigh Ave, Philadelphia, PA 19133",           lat: 39.9931, lng: -75.1598 },
+      { address: "2749 W Hunting Park Ave, Philadelphia, PA 19129",    lat: 40.0104, lng: -75.1866 },
+      { address: "2145 W Allegheny Ave, Philadelphia, PA 19132",       lat: 39.9998, lng: -75.1838 },
+      { address: "5051 Wissahickon Ave, Philadelphia, PA 19144",       lat: 40.0418, lng: -75.1815 },
+      { address: "738 Bethlehem Pike, Montgomeryville, PA 18936",      lat: 40.2477, lng: -75.2287 },
+      { address: "1110 West End Blvd, Quakertown, PA 18951",           lat: 40.4418, lng: -75.3415 },
+      { address: "103 South Baringer Ave, Silverdale, PA 18962",       lat: 40.3537, lng: -75.2523 },
+      { address: "4460 Easton Ave, Bethlehem, PA 18015",               lat: 40.6301, lng: -75.3963 },
+      { address: "376 W. Uwchlan Ave, Downingtown, PA 19335",          lat: 40.0026, lng: -75.7185 },
+      { address: "750 Miles Rd, West Chester, PA 19380",               lat: 39.9832, lng: -75.6443 },
+      { address: "80 E Uwchlan Ave, Exton, PA 19341",                  lat: 40.0487, lng: -75.6354 },
+      { address: "2301 Welsh Rd, Philadelphia, PA 19114",              lat: 40.0793, lng: -75.0298 },
+      { address: "1619 Grant Ave, Philadelphia, PA 19115",             lat: 40.0876, lng: -75.0523 },
+      { address: "9834 Bustleton Ave, Philadelphia, PA 19114",         lat: 40.0743, lng: -75.0454 },
+      { address: "842 Red Lion Rd, Philadelphia, PA 19115",            lat: 40.0887, lng: -75.0634 },
+      { address: "10050 Roosevelt Blvd, Philadelphia, PA 19116",       lat: 40.1054, lng: -75.0265 },
+      { address: "2998 A Welsh Rd, Philadelphia, PA 19152",            lat: 40.0676, lng: -75.0276 },
+      { address: "3170 Willits Rd, Philadelphia, PA 19136",            lat: 40.0601, lng: -74.9879 },
+      { address: "8200 Roosevelt Boulevard, Philadelphia, PA 19152",   lat: 40.0632, lng: -75.0398 },
+      { address: "5801 Oxford Ave, Philadelphia, PA 19149",            lat: 40.0415, lng: -75.0776 },
+      { address: "2 Township Line Rd, Elkins Park, PA 19027",          lat: 40.0779, lng: -75.1301 },
+      { address: "1402 Brace Rd, Cherry Hill, NJ 08034",               lat: 39.9154, lng: -75.0187 },
+      { address: "224 W Broad Street, Quakertown, PA 18951",           lat: 40.4418, lng: -75.3463 },
+      { address: "520 Pennsylvania Ave, Fort Washington, PA 19034",    lat: 40.1443, lng: -75.2009 },
+      { address: "549 Doylestown Rd, Lansdale, PA 19445",              lat: 40.2415, lng: -75.2887 },
+      { address: "2054 Red Lion Rd, Philadelphia, PA 19115",           lat: 40.0876, lng: -75.0534 },
+    ];
+
+    const locationsGrid  = document.getElementById("locationsGrid");
+    const searchInput    = document.getElementById("locationSearch");
+    const radiusOptions  = document.getElementById("radiusOptions");
+    const radiusSelect   = document.getElementById("radiusSelect");
+    const radiusBtn      = document.getElementById("radiusBtn");
+    const radiusClear    = document.getElementById("radiusClear");
+    const radiusStatus   = document.getElementById("radiusStatus");
+
+    function getCity(address) {
+      const parts = address.split(",").map(p => p.trim());
+      for (let i = 0; i < parts.length; i++) {
+        if (/^(PA|NJ)\s+\d{5}/.test(parts[i])) return parts[i - 1];
+      }
+      return parts[1] || "Location";
+    }
+
+    function getZip(address) {
+      const match = address.match(/\d{5}$/);
+      return match ? match[0] : "";
+    }
+
+    function getStreet(address) {
+      return address.split(",")[0].trim();
+    }
+
+    function getCityState(address) {
+      const parts = address.split(",").map(p => p.trim());
+      for (let i = 0; i < parts.length; i++) {
+        const m = parts[i].match(/^(PA|NJ)\s+\d{5}/);
+        if (m) return `${parts[i-1]}, ${m[1]}`;
+      }
+      return "";
+    }
+
+    function haversine(lat1, lng1, lat2, lng2) {
+      const R = 3958.8;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat/2)**2 +
+                Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+                Math.sin(dLng/2)**2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+
+    function groupByCity(locs) {
+      const groups = {};
+      locs.forEach(loc => {
+        const city = getCity(loc.address);
+        if (!groups[city]) groups[city] = [];
+        groups[city].push(loc);
+      });
+      return groups;
+    }
+
+    function renderLocations(filter = "", distMap = null) {
+      let filtered = locations.filter(l => l.address.toLowerCase().includes(filter.toLowerCase()));
+      if (distMap) filtered = filtered.filter(l => distMap.has(l.address));
+
+      locationsGrid.innerHTML = "";
+
+      if (filtered.length === 0) {
+        locationsGrid.innerHTML = '<p class="no-results">No locations found.</p>';
+        return;
+      }
+
+      const groups = groupByCity(filtered);
+      let sorted = Object.keys(groups);
+      if (distMap) {
+        sorted.sort((a, b) => {
+          const minA = Math.min(...groups[a].map(l => distMap.get(l.address)));
+          const minB = Math.min(...groups[b].map(l => distMap.get(l.address)));
+          return minA - minB;
+        });
+      } else {
+        sorted.sort((a, b) => groups[b].length - groups[a].length || a.localeCompare(b));
+      }
+
+      sorted.forEach(city => {
+        const addrs = groups[city];
+        const group = document.createElement("div");
+        group.className = "city-group";
+
+        group.innerHTML = `
+          <div class="city-header">
+            <div class="city-header-left">
+              <div class="city-dot"></div>
+              <span class="city-name">${city}</span>
+              <span class="city-count">${addrs.length} location${addrs.length > 1 ? "s" : ""}</span>
+            </div>
+            <span class="city-chevron">▼</span>
+          </div>
+          <div class="city-addresses">
+            ${addrs.map(loc => {
+              const dist = distMap ? distMap.get(loc.address) : null;
+              const badge = dist !== null ? `<span class="distance-badge">${dist.toFixed(1)} mi</span>` : "";
+              const cityState = getCityState(loc.address);
+              const applyUrl = `apply.html?city=${encodeURIComponent(cityState)}`;
+              return `
+                <a class="address-row" href="${applyUrl}">
+                  <span class="address-street">${getStreet(loc.address)}${badge}</span>
+                  <span class="address-arrow">Apply →</span>
+                </a>`;
+            }).join("")}
+          </div>
+        `;
+
+        group.querySelector(".city-header").addEventListener("click", () => {
+          group.classList.toggle("open");
+        });
+
+        locationsGrid.appendChild(group);
+      });
+    }
+
+    async function doRadiusSearch() {
+      const zip = searchInput.value.trim();
+      const radius = parseFloat(radiusSelect.value);
+      radiusStatus.style.color = "#888";
+      radiusStatus.textContent = "Searching…";
+      radiusBtn.disabled = true;
+
+      try {
+        const res = await fetch(`https://api.zippopotam.us/us/${zip}`);
+        if (!res.ok) throw new Error("not found");
+        const data = await res.json();
+        const uLat = parseFloat(data.places[0].latitude);
+        const uLng = parseFloat(data.places[0].longitude);
+
+        const distMap = new Map();
+        locations.forEach(loc => {
+          const d = haversine(uLat, uLng, loc.lat, loc.lng);
+          if (d <= radius) distMap.set(loc.address, d);
+        });
+
+        renderLocations("", distMap);
+
+        const count = distMap.size;
+        radiusStatus.style.color = count > 0 ? "#FF671F" : "#e44";
+        radiusStatus.textContent = count > 0
+          ? `${count} location${count !== 1 ? "s" : ""} within ${radius} miles of ${zip}`
+          : `No locations found within ${radius} miles of ${zip}.`;
+        radiusClear.style.display = "inline-block";
+      } catch {
+        radiusStatus.style.color = "#e44";
+        radiusStatus.textContent = "Could not find that ZIP code. Please try again.";
+      } finally {
+        radiusBtn.disabled = false;
+      }
+    }
+
+    function clearRadius() {
+      radiusStatus.textContent = "";
+      radiusClear.style.display = "none";
+      radiusOptions.style.display = "none";
+      renderLocations(searchInput.value);
+    }
+
+    searchInput.addEventListener("input", e => {
+      const val = e.target.value.trim();
+      if (/^\d{5}$/.test(val)) {
+        radiusOptions.style.display = "flex";
+      } else {
+        radiusOptions.style.display = "none";
+        radiusStatus.textContent = "";
+        radiusClear.style.display = "none";
+        renderLocations(val);
+      }
+    });
+
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Enter" && /^\d{5}$/.test(searchInput.value.trim())) doRadiusSearch();
+    });
+
+    radiusBtn.addEventListener("click", doRadiusSearch);
+    radiusClear.addEventListener("click", clearRadius);
+    renderLocations();
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        const target = document.querySelector(this.getAttribute("href"));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  </script>
+
+  <script>
+    async function loadJobs() {
+      const container = document.getElementById('jobsContainer');
+      try {
+        const res = await fetch('/.netlify/functions/jobs');
+        if (!res.ok) throw new Error('fetch failed');
+        const jobs = await res.json();
+
+        if (!jobs.length) {
+          container.innerHTML = '<p class="jobs-error">No open positions at this time. Check back soon!</p>';
+          return;
+        }
+
+        // Group by department
+        const groups = {};
+        jobs.forEach(job => {
+          const dept = job.category || 'General';
+          if (!groups[dept]) groups[dept] = [];
+          groups[dept].push(job);
+        });
+
+        container.innerHTML = Object.entries(groups).map(([dept, deptJobs]) => `
+          <div class="job-dept-group">
+            <div class="job-dept-header">${dept}</div>
+            ${deptJobs.map(job => `
+              <div class="job-card">
+                <div class="job-info">
+                  <div class="job-title">${job.title}</div>
+                  ${job.location ? `<div class="job-location">📍 ${job.location}</div>` : ''}
+                </div>
+                <a href="${job.link}" class="job-apply-btn" target="_blank" rel="noopener">Apply Now</a>
+              </div>
+            `).join('')}
+          </div>
+        `).join('');
+
+      } catch (err) {
+        container.innerHTML = '<p class="jobs-error">Unable to load positions right now. <a href="apply.html" style="color:var(--orange);font-weight:700;">View all openings →</a></p>';
+      }
+    }
+
+    loadJobs();
+  </script>
+</body>
+</html>

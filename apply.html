@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply | People Capital Group</title>
+  <link rel="icon" href="icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF671F;
+      --pink:   #DA1884;
+      --dark:   #1D1D1B;
+      --light:  #FFF8F2;
+      --peach:  #FFE8D6;
+      --gray:   #F9F4F0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fff;
+      color: var(--dark);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 10% 20%, rgba(255,103,31,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(218,24,132,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255,248,240,1) 0%, #fff 100%);
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .blob-1 { width: 400px; height: 400px; background: var(--orange); top: -100px; left: -100px; }
+    .blob-2 { width: 350px; height: 350px; background: var(--pink);   bottom: -80px; right: -80px; }
+    .blob-3 { width: 250px; height: 250px; background: #7B2FBE;       top: 40%; left: 60%; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      box-shadow: 0 2px 16px rgba(255,103,31,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nav-logo-icon-UNUSED {
+      display: none;
+    }
+
+    .nav-logo span {
+      color: var(--dark);
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .nav-logo span em {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    nav a.nav-link {
+      color: #555;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+
+    nav a.nav-link:hover { color: var(--orange); }
+
+    /* ── HEADER STRIP ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+
+    .page-header-content { position: relative; z-index: 1; }
+
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      margin-bottom: .5rem;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      opacity: .9;
+      font-weight: 600;
+    }
+
+    /* ── JOBS IFRAME ── */
+    .jobs-section {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .jobs-iframe-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,103,31,0.15);
+      min-height: 600px;
+      background: #fff;
+      box-shadow: 0 8px 40px rgba(255,103,31,0.08), 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light);
+      border-top: 2px solid var(--peach);
+      color: #888;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon"><img src="icon-512.png" alt="PCG" /></div>
+      <span>People Capital <em>Group</em></span>
+    </a>
+    <a class="nav-link" href="index.html">← Back to Jobs</a>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-content">
+      <h1 id="pageTitle">Open Positions</h1>
+      <p id="pageSubtitle">Browse available roles and apply directly below.</p>
+    </div>
+  </div>
+
+  <!-- PAYCOR IFRAME -->
+  <section class="jobs-section">
+    <div class="jobs-iframe-wrap" id="paycorContainer"></div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const city = params.get("city");
+
+    if (city) {
+      document.getElementById("pageTitle").textContent = "Positions Near " + city;
+      document.getElementById("pageSubtitle").textContent = "Showing available roles at our " + city + " location.";
+    }
+
+    const baseUrl = "//recruitingbypaycor.com/career/iframe.action?clientId=8a7883d09be7cb01019c10eb04fa0f97";
+    const src = city ? baseUrl + "&gnewtonLocation=" + encodeURIComponent(city) : baseUrl;
+
+    const s = document.createElement("script");
+    s.id = "gnewtonjs";
+    s.type = "text/javascript";
+    s.src = src;
+    document.getElementById("paycorContainer").appendChild(s);
+  </script>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
+    <p style="margin-top: .4rem; font-size: .85rem;">Questions? <a href="mailto:careers@peoplecapitalgroup.com" style="color: var(--orange); font-weight: 700; text-decoration: none;">careers@peoplecapitalgroup.com</a></p>
+  </footer>
+
+</body>
+</html>
