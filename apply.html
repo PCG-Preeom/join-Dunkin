@@ -206,14 +206,24 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const city = params.get("city");
+    const gnk  = params.get("gnk");
+    const gni  = params.get("gni");
 
-    if (city) {
+    if (gnk === 'job' && gni) {
+      document.getElementById("pageTitle").textContent = "Job Application";
+      document.getElementById("pageSubtitle").textContent = "Complete your application below.";
+    } else if (city) {
       document.getElementById("pageTitle").textContent = "Positions Near " + city;
       document.getElementById("pageSubtitle").textContent = "Showing available roles at our " + city + " location.";
     }
 
     const baseUrl = "//recruitingbypaycor.com/career/iframe.action?clientId=8a7883d09be7cb01019c10eb04fa0f97";
-    const src = city ? baseUrl + "&gnewtonLocation=" + encodeURIComponent(city) : baseUrl;
+    let src = baseUrl;
+    if (gnk && gni) {
+      src += "&gnk=" + encodeURIComponent(gnk) + "&gni=" + encodeURIComponent(gni);
+    } else if (city) {
+      src += "&gnewtonLocation=" + encodeURIComponent(city);
+    }
 
     const s = document.createElement("script");
     s.id = "gnewtonjs";

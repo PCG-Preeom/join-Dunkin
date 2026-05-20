@@ -1239,15 +1239,20 @@
         container.innerHTML = Object.entries(groups).map(([dept, deptJobs]) => `
           <div class="job-dept-group">
             <div class="job-dept-header">${dept}</div>
-            ${deptJobs.map(job => `
+            ${deptJobs.map(job => {
+              const idMatch = job.link.match(/[?&]id=([^&]+)/);
+              const applyHref = idMatch
+                ? `apply.html?gnk=job&gni=${idMatch[1]}`
+                : 'apply.html';
+              return `
               <div class="job-card">
                 <div class="job-info">
                   <div class="job-title">${job.title}</div>
                   ${job.location ? `<div class="job-location">📍 ${job.location}</div>` : ''}
                 </div>
-                <a href="${job.link}" class="job-apply-btn" target="_blank" rel="noopener">Apply Now</a>
-              </div>
-            `).join('')}
+                <a href="${applyHref}" class="job-apply-btn">Apply Now</a>
+              </div>`;
+            }).join('')}
           </div>
         `).join('');
 
