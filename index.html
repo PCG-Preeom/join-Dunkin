@@ -514,6 +514,43 @@
       border: 1px solid rgba(255,103,31,0.25);
     }
 
+    .address-job-list {
+      display: none;
+      flex-direction: column;
+      border-top: 1px solid rgba(255,103,31,0.1);
+      background: #fffaf7;
+    }
+
+    .address-job-list.open { display: flex; }
+
+    .address-job-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .65rem 1.2rem .65rem 2.5rem;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,103,31,0.07);
+      transition: background .15s;
+    }
+
+    .address-job-link:last-child { border-bottom: none; }
+
+    .address-job-link:hover {
+      background: rgba(255,103,31,0.06);
+      color: var(--orange);
+    }
+
+    .address-job-link span {
+      font-size: .78rem;
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    .address-row-toggle { cursor: pointer; }
+
     /* ── ACCORDION ── */
     .locations-grid {
       display: grid;
@@ -831,7 +868,6 @@
     <div class="nav-links">
       <a class="nav-link" href="#jobs">Positions</a>
       <a class="nav-link" href="#locations">Locations</a>
-      <a class="nav-btn" href="apply.html">Apply Now</a>
     </div>
   </nav>
 
@@ -994,14 +1030,6 @@
     </div>
   </section>
 
-  <!-- APPLY CTA -->
-  <section class="apply-cta">
-    <div class="apply-cta-inner">
-      <h2>Ready to Apply?</h2>
-      <p>Click below to view all open positions and submit your application through our recruiting system.</p>
-      <a href="apply.html" class="hero-cta">Apply Now</a>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer>
@@ -1169,25 +1197,58 @@
               const dist = distMap ? distMap.get(loc.address) : null;
               const distBadge = dist !== null ? `<span class="distance-badge">${dist.toFixed(1)} mi</span>` : "";
               const street = getStreet(loc.address).toLowerCase();
-              const addrJobCount = liveJobs.filter(j =>
-                j.location.toLowerCase().includes(street)
-              ).length;
-              const addrJobBubble = addrJobCount > 0
-                ? `<span class="addr-jobs-bubble">${addrJobCount} open</span>`
+              const addrJobs = liveJobs.filter(j => j.location.toLowerCase().includes(street));
+              const addrJobBubble = addrJobs.length > 0
+                ? `<span class="addr-jobs-bubble">${addrJobs.length} open</span>`
                 : "";
               const cityState = getCityState(loc.address);
-              const applyUrl = `apply.html?city=${encodeURIComponent(cityState)}`;
-              return `
-                <a class="address-row" href="${applyUrl}">
-                  <span class="address-street">${getStreet(loc.address)}${distBadge}${addrJobBubble}</span>
+              const streetLabel = `${getStreet(loc.address)}${distBadge}${addrJobBubble}`;
+
+              if (addrJobs.length === 1) {
+                const idMatch = addrJobs[0].link.match(/[?&]id=([^&]+)/);
+                const href = idMatch ? `apply.html?gnk=job&gni=${idMatch[1]}` : 'apply.html';
+                return `
+                <a class="address-row" href="${href}">
+                  <span class="address-street">${streetLabel}</span>
                   <span class="address-arrow">Apply →</span>
                 </a>`;
+              } else if (addrJobs.length > 1) {
+                const jobItems = addrJobs.map(j => {
+                  const idMatch = j.link.match(/[?&]id=([^&]+)/);
+                  const href = idMatch ? `apply.html?gnk=job&gni=${idMatch[1]}` : 'apply.html';
+                  return `<a class="address-job-link" href="${href}">${j.title}<span>Apply →</span></a>`;
+                }).join('');
+                return `
+                <div class="address-row address-row-toggle">
+                  <span class="address-street">${streetLabel}</span>
+                  <span class="address-arrow">▼</span>
+                </div>
+                <div class="address-job-list">${jobItems}</div>`;
+              } else {
+                const applyUrl = `apply.html?city=${encodeURIComponent(cityState)}`;
+                return `
+                <a class="address-row" href="${applyUrl}">
+                  <span class="address-street">${streetLabel}</span>
+                  <span class="address-arrow">Apply →</span>
+                </a>`;
+              }
             }).join("")}
           </div>
         `;
 
         group.querySelector(".city-header").addEventListener("click", () => {
           group.classList.toggle("open");
+        });
+
+        group.querySelectorAll(".address-row-toggle").forEach(toggle => {
+          toggle.addEventListener("click", () => {
+            const list = toggle.nextElementSibling;
+            if (list && list.classList.contains("address-job-list")) {
+              list.classList.toggle("open");
+              toggle.querySelector(".address-arrow").textContent =
+                list.classList.contains("open") ? "▲" : "▼";
+            }
+          });
         });
 
         locationsGrid.appendChild(group);
