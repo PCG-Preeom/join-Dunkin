@@ -3,11 +3,9 @@ const https = require('https');
 const CLIENT_ID = '8a7883d09be7cb01019c10eb04fa0f97';
 
 const URLS = [
+  `https://recruitingbypaycor.com/career/CareerHome.action?clientId=${CLIENT_ID}`,
   `https://recruitingbypaycor.com/career/JobBoardAtom.action?clientId=${CLIENT_ID}`,
   `https://recruitingbypaycor.com/career/jobBoardAtom.action?clientId=${CLIENT_ID}`,
-  `https://recruitingbypaycor.com/career/atom.action?clientId=${CLIENT_ID}`,
-  `https://recruitingbypaycor.com/career/iframe.action?clientId=${CLIENT_ID}`,
-  `https://recruitingbypaycor.com/career/jobBoard.action?clientId=${CLIENT_ID}`,
 ];
 
 function fetchUrl(url) {
@@ -63,59 +61,41 @@ function parseAtom(xml) {
   return jobs;
 }
 
-// Parse gnewton HTML career page
+// Parse gnewton CareerHome HTML page
 function parseHtml(html) {
   const jobs = [];
   let currentDept = 'Open Position';
-
-  // Extract department headers
-  const deptRe = /gnewtonCareerGroupHeaderClass[^>]*>([\s\S]*?)<\/[^>]+>/gi;
-  // Extract job rows — each row has a title link and location
-  const rowRe = /gnewtonCareerGroupJobTitleClass[^>]*>([\s\S]*?)<\/(?:td|div|span|li)>/gi;
-
-  // Build a flat list of departments + jobs in document order
   const parts = [];
-  let d, r;
 
-  const deptRe2 = /class="gnewtonCareerGroupHeaderClass[^"]*"[^>]*>([\s\S]*?)<\/[^>]+>/gi;
-  while ((d = deptRe2.exec(html)) !== null) {
-    parts.push({ type: 'dept', index: d.index, text: decode(d[1]) });
+  // Department headers: <div class="gnewtonCareerGroupHeaderClass">Customer Service</div>
+  const deptRe = /<div[^>]*class="gnewtonCareerGroupHeaderClass[^"]*"[^>]*>([\s\S]*?)<\/div>/gi;
+  let d;
+  while ((d = deptRe.exec(html)) !== null) {
+    const text = decode(d[1]);
+    if (text) parts.push({ type: 'dept', index: d.index, text });
   }
 
-  const jobRe = /href="(https?:\/\/recruitingbypaycor\.com\/career\/jobDetails[^"]+)"[^>]*class="gnewtonCareerGroupJobTitleClass[^"]*"[^>]*>([\s\S]*?)<\/a>/gi;
-  const jobRe2 = /class="gnewtonCareerGroupJobTitleClass[^"]*"[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi;
-
-  // Try both href-first and class-first patterns
+  // Job titles: <div class="gnewtonCareerGroupJobTitleClass"><a href="...">Title</a>
+  const jobRe = /<div[^>]*class="gnewtonCareerGroupJobTitleClass[^"]*"[^>]*>\s*<a\s+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi;
   let j;
   while ((j = jobRe.exec(html)) !== null) {
-    parts.push({ type: 'job', index: j.index, link: j[1], title: decode(j[2]) });
-  }
-  if (!parts.some(p => p.type === 'job')) {
-    while ((j = jobRe2.exec(html)) !== null) {
-      parts.push({ type: 'job', index: j.index, link: j[1], title: decode(j[2]) });
-    }
+    const title = decode(j[2]);
+    if (title) parts.push({ type: 'job', index: j.index, link: j[1], title, endIndex: j.index + j[0].length });
   }
 
-  // Sort by document order
   parts.sort((a, b) => a.index - b.index);
 
   parts.forEach(p => {
-    if (p.type === 'dept') currentDept = p.text;
-    else if (p.type === 'job' && p.title) {
-      jobs.push({ title: p.title, link: p.link, category: currentDept, location: '' });
+    if (p.type === 'dept') {
+      currentDept = p.text;
+    } else if (p.type === 'job') {
+      // Grab the description div that follows (contains address/location)
+      const snippet = html.slice(p.endIndex, p.endIndex + 600);
+      const locM = snippet.match(/<div[^>]*class="gnewtonCareerGroupJobDescriptionClass[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+      const location = locM ? decode(locM[1]) : '';
+      jobs.push({ title: p.title, link: p.link, category: currentDept, location: location.replace(/\s+/g, ' ').trim() });
     }
   });
-
-  // Also try simpler pattern
-  if (jobs.length === 0) {
-    const simpleRe = /href="([^"]*jobDetails[^"]*)"[^>]*>([\s\S]*?)<\/a>/gi;
-    while ((j = simpleRe.exec(html)) !== null) {
-      const title = decode(j[2]);
-      if (title && title.length > 1 && title.length < 100) {
-        jobs.push({ title, link: j[1], category: 'Open Position', location: '' });
-      }
-    }
-  }
 
   return jobs;
 }
