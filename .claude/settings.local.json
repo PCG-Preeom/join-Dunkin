@@ -5,7 +5,20 @@
       "Read(//c/Users/PCG-IT/**)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(curl -s \"https://recruitingbypaycor.com/career/iframe.action?clientId=8a7883d09be7cb01019c10eb04fa0f97\" -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 Chrome/120 Safari/537.36\")",
+      "Bash(grep -oP '\\(?:ajax|fetch|XMLHttpRequest|\\\\.get\\\\\\(|\\\\.post\\\\\\(|url[\"\\\\s]*:[\"\\\\s]*\\)[^\"<]{5,80}')",
+      "Bash(grep -oP '/career/[a-zA-Z]+\\\\.action[^\"<]{0,60}')",
+      "Bash(curl -s -L \"https://recruitingbypaycor.com/career/CareerHome.action?clientId=8a7883d09be7cb01019c10eb04fa0f97\" -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 Chrome/120 Safari/537.36\" -H \"Accept: text/html,application/xhtml+xml,*/*\")",
+      "Bash(node -e ' *)",
+      "Bash(curl -s \"https://joindunkin.netlify.app/.netlify/functions/jobs\" -w \"\\\\nHTTP_STATUS:%{http_code}\")",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(dir \"c:\\\\Users\\\\PCG-IT\\\\Documents\\\\Dunkin\")",
+      "Bash(dir \"c:\\\\Users\\\\PCG-IT\\\\Documents\\\\Dunkin\" /B)"
     ]
   }
 }
