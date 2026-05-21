@@ -71,12 +71,18 @@
     nav a.nav-link {
       color: #555;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
-      transition: color .2s;
+      transition: color .2s, background .2s;
+      position: relative;
+      padding: .4rem .9rem;
+      border-radius: 999px;
     }
 
-    nav a.nav-link:hover { color: var(--orange); }
+    nav a.nav-link:hover {
+      color: var(--orange);
+      background: rgba(255,103,31,.1);
+    }
 
     nav a.nav-btn {
       background: linear-gradient(135deg, var(--orange), var(--pink));
@@ -96,17 +102,57 @@
     .hero {
       background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
       color: #fff;
-      text-align: center;
-      padding: 5rem 2rem 5rem;
+      padding: 5rem 2rem;
       position: relative;
       overflow: hidden;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-image {
+      flex: 0 0 420px;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.3);
+      display: block;
+      border: 4px solid rgba(255,255,255,.25);
     }
 
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+      background: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.5' fill='%23ffffff' fill-opacity='0.09'/%3E%3C/svg%3E") repeat;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.11) 0%, transparent 68%);
+      top: -180px; right: -120px;
+      pointer-events: none;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
@@ -241,13 +287,42 @@
       color: var(--dark);
     }
 
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 52px; height: 4px;
+      background: linear-gradient(90deg, var(--orange), var(--pink));
+      border-radius: 2px;
+      margin: .7rem auto 0;
+    }
+
     /* ── BENEFITS ── */
     .benefits {
       background: var(--light);
       padding: 1rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .benefits-inner { max-width: 1100px; margin: 0 auto; }
+    .benefits::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.2' fill='%23FF671F' fill-opacity='0.07'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+    .benefits::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 90% 12%, rgba(255,103,31,.1) 0%, transparent 42%),
+        radial-gradient(circle at 8% 88%, rgba(218,24,132,.08) 0%, transparent 38%);
+      pointer-events: none;
+    }
+
+    .benefits-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
     .benefits .section-label { color: var(--orange); }
     .benefits .section-title { color: var(--dark); }
 
@@ -259,39 +334,130 @@
 
     .benefit-card {
       border-radius: 20px;
+      cursor: pointer;
+      perspective: 1000px;
+      transition: box-shadow .25s;
+    }
+
+    .benefit-card:hover { box-shadow: 0 20px 48px rgba(0,0,0,.28); }
+
+    .benefit-card-inner {
+      position: relative;
+      width: 100%;
+      min-height: 210px;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 20px;
+    }
+
+    .benefit-card.flipped .benefit-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .benefit-front,
+    .benefit-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
       padding: 2rem 1.5rem;
       text-align: center;
-      transition: transform .25s, box-shadow .25s;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       overflow: hidden;
     }
 
-    .benefit-card::before {
+    .benefit-front::before,
+    .benefit-back::before {
       content: '';
       position: absolute;
       top: -30px; right: -30px;
       width: 80px; height: 80px;
       border-radius: 50%;
       background: rgba(255,255,255,0.08);
+      pointer-events: none;
     }
 
-    .benefit-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+    .benefit-back { transform: rotateY(180deg); }
 
-    .benefit-card.c1 { background: linear-gradient(135deg, #FF671F, #ff9a5c); }
-    .benefit-card.c2 { background: linear-gradient(135deg, #DA1884, #f06bba); }
-    .benefit-card.c3 { background: linear-gradient(135deg, #FF4A4A, #ff8a8a); }
-    .benefit-card.c4 { background: linear-gradient(135deg, #FF671F, #DA1884); }
-    .benefit-card.c5 { background: linear-gradient(135deg, #c9006b, #DA1884); }
+    .benefit-card.c1 .benefit-front { background: linear-gradient(135deg, #FF671F, #ff9a5c); }
+    .benefit-card.c2 .benefit-front { background: linear-gradient(135deg, #DA1884, #f06bba); }
+    .benefit-card.c3 .benefit-front { background: linear-gradient(135deg, #FF4A4A, #ff8a8a); }
+    .benefit-card.c4 .benefit-front { background: linear-gradient(135deg, #FF671F, #DA1884); }
+    .benefit-card.c5 .benefit-front { background: linear-gradient(135deg, #c9006b, #DA1884); }
 
-    .benefit-icon { font-size: 2.4rem; margin-bottom: 1rem; }
-    .benefit-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: .4rem; color: #fff; }
-    .benefit-card p { font-size: .85rem; color: rgba(255,255,255,.85); line-height: 1.5; }
+    .benefit-card.c1 .benefit-back { background: linear-gradient(315deg, #c94410, #d96e38); }
+    .benefit-card.c2 .benefit-back { background: linear-gradient(315deg, #a80f5d, #bc4a8e); }
+    .benefit-card.c3 .benefit-back { background: linear-gradient(315deg, #c42e2e, #d85858); }
+    .benefit-card.c4 .benefit-back { background: linear-gradient(315deg, #c94410, #a80f5d); }
+    .benefit-card.c5 .benefit-back { background: linear-gradient(315deg, #8e0049, #a80f5d); }
+
+    .benefit-icon { font-size: 2.4rem; }
+    .benefit-card h3 { font-size: 1rem; font-weight: 800; color: #fff; }
+    .benefit-card p { font-size: .88rem; color: rgba(255,255,255,.92); line-height: 1.65; }
+
+    .benefit-hint {
+      margin-top: .5rem;
+      font-size: .68rem;
+      font-weight: 800;
+      color: rgba(255,255,255,.75);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      border: 1.5px solid rgba(255,255,255,.35);
+      padding: .28rem .85rem;
+      border-radius: 999px;
+      animation: hintPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { opacity: .6; border-color: rgba(255,255,255,.25); }
+      50%       { opacity: 1; border-color: rgba(255,255,255,.65); }
+    }
+
+    .benefit-back-hint {
+      margin-top: .75rem;
+      font-size: .65rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
 
     /* ── JOBS ── */
     .jobs {
       padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .jobs::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.2' fill='%23DA1884' fill-opacity='0.05'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+    .jobs::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 85% 80%, rgba(218,24,132,.08) 0%, transparent 42%),
+        radial-gradient(circle at 12% 18%, rgba(255,103,31,.07) 0%, transparent 38%);
+      pointer-events: none;
+    }
+
+    .jobs-inner {
       max-width: 1100px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .jobs-grid {
@@ -324,10 +490,10 @@
 
     .pos-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
 
-    .pos-card.p1 { background: linear-gradient(135deg, #fff5f0, #ffe8d6); border: 2px solid #ffc4a0; }
-    .pos-card.p2 { background: linear-gradient(135deg, #fff0f8, #ffd6ef); border: 2px solid #ffaad9; }
-    .pos-card.p3 { background: linear-gradient(135deg, #fff0f5, #ffe0ec); border: 2px solid #ffb3cc; }
-    .pos-card.p4 { background: linear-gradient(135deg, #fff5f0, #ffddd0); border: 2px solid #ffb399; }
+    .pos-card.p1 { background: linear-gradient(135deg, #FF671F, #ff9a5c); border: none; display: flex; }
+    .pos-card.p2 { background: linear-gradient(135deg, #DA1884, #f06bba); border: none; display: flex; }
+    .pos-card.p3 { background: linear-gradient(135deg, #c9006b, #DA1884); border: none; display: flex; }
+    .pos-card.p4 { background: linear-gradient(135deg, #FF671F, #DA1884); border: none; display: flex; }
 
     .pos-icon {
       width: 54px;
@@ -338,12 +504,12 @@
       justify-content: center;
       font-size: 1.6rem;
       flex-shrink: 0;
-      background: rgba(255,255,255,0.7);
-      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
     }
 
-    .pos-info h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: .3rem; color: var(--dark); }
-    .pos-info p  { font-size: .83rem; color: #555; line-height: 1.4; }
+    .pos-info h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: .3rem; color: #fff; }
+    .pos-info p  { font-size: .83rem; color: rgba(255,255,255,.85); line-height: 1.4; }
 
     /* ── LOCATIONS ── */
     .locations {
@@ -904,6 +1070,100 @@
 
     footer strong { color: var(--orange); }
 
+    /* ── LOGO BOUNCE ── */
+    @keyframes logoBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30%       { transform: translateY(-6px) rotate(-6deg); }
+      60%       { transform: translateY(-3px) rotate(4deg); }
+    }
+    .nav-logo-icon {
+      animation: logoBounce 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 101;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2.5px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      padding: 1.2rem 2rem 1.5rem;
+      z-index: 98;
+      box-shadow: 0 8px 32px rgba(255,103,31,.12);
+      flex-direction: column;
+      gap: .25rem;
+      animation: slideDown .2s ease;
+    }
+    .mobile-menu.open { display: flex; }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .mobile-menu a {
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 1.05rem;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--peach);
+      transition: color .15s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-menu .mobile-apply-btn {
+      margin-top: .5rem;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff !important;
+      text-align: center;
+      padding: .75rem 1.5rem !important;
+      border-radius: 999px;
+      border-bottom: none !important;
+      font-weight: 800 !important;
+      box-shadow: 0 4px 12px rgba(255,103,31,.3);
+    }
+
+    /* ── HERO FLOATS ── */
+    .hero-floats {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .float-item {
+      position: absolute;
+      opacity: 0.18;
+      animation: heroFloat ease-in-out infinite;
+      user-select: none;
+      line-height: 1;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px) rotate(-5deg); }
+      50%       { transform: translateY(-22px) rotate(8deg); }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .jobs-grid { grid-template-columns: 1fr; }
@@ -912,9 +1172,19 @@
       .stats-inner { gap: 1.5rem; }
     }
 
+    @media (max-width: 860px) {
+      .hero-inner { flex-direction: column; gap: 2.5rem; text-align: center; }
+      .hero-image { flex: none; width: 100%; max-width: 500px; }
+      .hero-image img { height: 260px; }
+      .hero-buttons { justify-content: center; }
+      .hero p { margin: 0 auto 2rem; }
+    }
+
     @media (max-width: 600px) {
       .hero { padding: 3.5rem 1.2rem 4rem; }
+      .hero-image img { height: 200px; }
       .nav-links .nav-link { display: none; }
+      .hamburger { display: flex; }
     }
   </style>
 </head>
@@ -928,16 +1198,37 @@
     </a>
     <div class="nav-links">
       <a class="nav-link" href="#jobs">Positions</a>
-      <a class="nav-link" href="#locations">Locations</a>
+      <a class="nav-link" href="#locations">📍 Locations</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#jobs">Positions</a>
+    <a href="#locations">📍 Locations</a>
+    <a href="apply.html" class="mobile-apply-btn">Apply Now →</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-floats" aria-hidden="true">
+      <!-- soft depth blobs -->
+      <div class="hero-blob" style="width:420px;height:420px;bottom:-100px;left:-80px;"></div>
+      <div class="hero-blob" style="width:220px;height:220px;top:10%;left:35%;opacity:.6;"></div>
+      <!-- floating icons -->
+      <span class="float-item" style="top:10%;left:8%;font-size:2.6rem;animation-duration:6s;animation-delay:0s">☕</span>
+      <span class="float-item" style="top:62%;left:9%;font-size:2rem;animation-duration:8.5s;animation-delay:1.2s">🍩</span>
+      <span class="float-item" style="top:14%;right:10%;font-size:2.4rem;animation-duration:7s;animation-delay:0.5s">🍩</span>
+      <span class="float-item" style="top:65%;right:9%;font-size:1.9rem;animation-duration:9s;animation-delay:2s">☕</span>
+      <span class="float-item" style="top:42%;left:4%;font-size:1.5rem;animation-duration:5.5s;animation-delay:1.8s">⭐</span>
+      <span class="float-item" style="top:38%;right:5%;font-size:1.5rem;animation-duration:10s;animation-delay:0.9s">⭐</span>
+    </div>
     <div class="hero-content">
       <div class="hero-badge">Now Hiring</div>
       <h1>Join Our Team</h1>
-      <p>We're hiring friendly, motivated people across our Dunkin' locations in PA & NJ. Build your future with flexible schedules, great pay, and a team that feels like family.</p>
+      <p>We're hiring friendly, motivated people across our Dunkin' locations in PA &amp; NJ. Build your future with flexible schedules, great pay, and a team that feels like family.</p>
       <div class="hero-buttons">
         <a href="#jobs" class="hero-cta">View Open Roles</a>
         <a href="#locations" class="hero-cta-ghost">See Locations</a>
@@ -957,12 +1248,12 @@
   <div class="stats-bar">
     <div class="stats-inner">
       <div class="stat-item">
-        <div class="stat-number">45</div>
+        <div class="stat-number" data-count="45">45</div>
         <div class="stat-label">Locations</div>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-number">4</div>
+        <div class="stat-number" data-count="0" id="openRolesStat">—</div>
         <div class="stat-label">Open Roles</div>
       </div>
       <div class="stat-divider"></div>
@@ -985,67 +1276,121 @@
       <h2 class="section-title">More Than Just a Job</h2>
       <div class="benefits-grid">
         <div class="benefit-card c1">
-          <div class="benefit-icon">💰</div>
-          <h3>Competitive Pay</h3>
-          <p>We offer competitive hourly wages with regular performance reviews.</p>
+          <div class="benefit-card-inner">
+            <div class="benefit-front">
+              <div class="benefit-icon">💰</div>
+              <h3>Competitive Pay</h3>
+              <div class="benefit-hint">Tap for details</div>
+            </div>
+            <div class="benefit-back">
+              <div class="benefit-icon">💰</div>
+              <p>We offer competitive hourly wages with regular performance reviews.</p>
+              <div class="benefit-back-hint">Tap to close</div>
+            </div>
+          </div>
         </div>
         <div class="benefit-card c2">
-          <div class="benefit-icon">📅</div>
-          <h3>Flexible Schedules</h3>
-          <p>Morning, afternoon, evening, and weekend shifts available to fit your life.</p>
+          <div class="benefit-card-inner">
+            <div class="benefit-front">
+              <div class="benefit-icon">📅</div>
+              <h3>Flexible Schedules</h3>
+              <div class="benefit-hint">Tap for details</div>
+            </div>
+            <div class="benefit-back">
+              <div class="benefit-icon">📅</div>
+              <p>Morning, afternoon, evening, and weekend shifts available to fit your life.</p>
+              <div class="benefit-back-hint">Tap to close</div>
+            </div>
+          </div>
         </div>
         <div class="benefit-card c3">
-          <div class="benefit-icon">☕</div>
-          <h3>Free Coffee</h3>
-          <p>Enjoy free Dunkin' beverages and food discounts while on shift — a perk of working with us.</p>
+          <div class="benefit-card-inner">
+            <div class="benefit-front">
+              <div class="benefit-icon">☕</div>
+              <h3>Free Coffee</h3>
+              <div class="benefit-hint">Tap for details</div>
+            </div>
+            <div class="benefit-back">
+              <div class="benefit-icon">☕</div>
+              <p>Enjoy free Dunkin' beverages and food discounts while on shift — a perk of the job.</p>
+              <div class="benefit-back-hint">Tap to close</div>
+            </div>
+          </div>
         </div>
         <div class="benefit-card c4">
-          <div class="benefit-icon">📈</div>
-          <h3>Growth Opportunities</h3>
-          <p>Start as crew and grow into leadership. We promote from within.</p>
+          <div class="benefit-card-inner">
+            <div class="benefit-front">
+              <div class="benefit-icon">📈</div>
+              <h3>Growth Opportunities</h3>
+              <div class="benefit-hint">Tap for details</div>
+            </div>
+            <div class="benefit-back">
+              <div class="benefit-icon">📈</div>
+              <p>Start as crew and grow into leadership. We promote from within.</p>
+              <div class="benefit-back-hint">Tap to close</div>
+            </div>
+          </div>
         </div>
         <div class="benefit-card c5">
-          <div class="benefit-icon">🤝</div>
-          <h3>Training Provided</h3>
-          <p>No experience needed — we train you for success from day one.</p>
+          <div class="benefit-card-inner">
+            <div class="benefit-front">
+              <div class="benefit-icon">🤝</div>
+              <h3>Training Provided</h3>
+              <div class="benefit-hint">Tap for details</div>
+            </div>
+            <div class="benefit-back">
+              <div class="benefit-icon">🤝</div>
+              <p>No experience needed — we train you for success from day one.</p>
+              <div class="benefit-back-hint">Tap to close</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- WAVE DIVIDER -->
+  <div style="background:var(--light);line-height:0;margin-top:-1px;">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path fill="#ffffff" d="M0,30 C360,70 1080,0 1440,40 L1440,60 L0,60 Z"/>
+    </svg>
+  </div>
+
   <!-- JOBS -->
   <section class="jobs" id="jobs">
+    <div class="jobs-inner">
     <div class="section-label">Positions Available</div>
     <h2 class="section-title">Find Your Role</h2>
     <div class="jobs-grid">
-      <div class="pos-card p1">
+      <a class="pos-card p1" href="#open-positions" style="text-decoration:none;">
         <div class="pos-icon">☕</div>
         <div class="pos-info">
           <h3>Crew Member</h3>
           <p>Help guests, prepare food and drinks, and bring great energy every shift.</p>
         </div>
-      </div>
-      <div class="pos-card p2">
+      </a>
+      <a class="pos-card p2" href="#open-positions" style="text-decoration:none;">
         <div class="pos-icon">⭐</div>
         <div class="pos-info">
           <h3>Shift Leader</h3>
           <p>Support the team, lead shifts, and deliver excellent guest service.</p>
         </div>
-      </div>
-      <div class="pos-card p3">
+      </a>
+      <a class="pos-card p3" href="#open-positions" style="text-decoration:none;">
         <div class="pos-icon">🏆</div>
         <div class="pos-info">
           <h3>Assistant Manager</h3>
           <p>Help manage daily operations, coach team members, and drive performance.</p>
         </div>
-      </div>
-      <div class="pos-card p4 bottom-center">
+      </a>
+      <a class="pos-card p4 bottom-center" href="#open-positions" style="text-decoration:none;">
         <div class="pos-icon">🎯</div>
         <div class="pos-info">
           <h3>Restaurant Manager</h3>
           <p>Lead the store, develop your team, and manage full operations.</p>
         </div>
-      </div>
+      </a>
+    </div>
     </div>
   </section>
 
@@ -1122,6 +1467,20 @@
     <p style="margin-top: .4rem; font-size: .8rem; color: #666;">This site is for employment opportunities at People Capital Group's independently owned Dunkin' locations.</p>
     <p style="margin-top: .4rem; font-size: .85rem;">Questions? <a href="mailto:careers@peoplecapitalgroup.com" style="color: var(--orange); font-weight: 700; text-decoration: none;">careers@peoplecapitalgroup.com</a></p>
   </footer>
+
+  <script>
+    function animateCount(el, target) {
+      const duration = 1800;
+      const start = performance.now();
+      const update = (now) => {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(ease * target);
+        if (p < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+  </script>
 
   <script>
     const locations = [
@@ -1415,6 +1774,39 @@
         target.scrollIntoView({ behavior: "smooth" });
       });
     });
+
+    // ── FLIP CARDS ──
+    document.querySelectorAll('.benefit-card').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+    });
+
+    // ── HAMBURGER ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ── STATS COUNT-UP ──
+    const statsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+          const target = parseInt(el.dataset.count);
+          if (target > 0) animateCount(el, target);
+        });
+        statsObserver.disconnect();
+      }
+    }, { threshold: 0.5 });
+
+    const statsBar = document.querySelector('.stats-bar');
+    if (statsBar) statsObserver.observe(statsBar);
   </script>
 
   <script>
@@ -1517,6 +1909,13 @@
 
         allJobs  = jobs;
         liveJobs = jobs;
+
+        const openRolesStat = document.getElementById('openRolesStat');
+        if (openRolesStat) {
+          openRolesStat.dataset.count = jobs.length;
+          animateCount(openRolesStat, jobs.length);
+        }
+
         renderLocations();
         populateCityDropdown();
         renderJobs();
