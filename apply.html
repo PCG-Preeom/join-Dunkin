@@ -161,38 +161,72 @@
       box-shadow: 0 8px 40px rgba(255,103,31,0.08), 0 2px 12px rgba(0,0,0,0.06);
     }
 
-    /* ── LOADING OVERLAY ── */
+    /* ── SKELETON SCREEN ── */
+    @keyframes shimmer {
+      0%   { background-position: -800px 0; }
+      100% { background-position:  800px 0; }
+    }
+
     .iframe-loading {
+      padding: 2.5rem 2.5rem 3rem;
+      transition: opacity .4s ease;
+    }
+
+    .iframe-loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .skel {
+      background: linear-gradient(90deg, #f3f3f3 25%, #e8e8e8 50%, #f3f3f3 75%);
+      background-size: 1600px 100%;
+      animation: shimmer 1.6s ease-in-out infinite;
+      border-radius: 8px;
+    }
+
+    .skel-group { margin-bottom: 2rem; }
+
+    .skel-job-title  { height: 30px; width: 58%; margin-bottom: .75rem; }
+    .skel-job-meta   { height: 13px; width: 40%; margin-bottom: .45rem; border-radius: 4px; }
+
+    .skel-divider { height: 1px; background: #eee; margin: 1.8rem 0; }
+
+    .skel-section-label { height: 11px; width: 130px; margin-bottom: 1.1rem; border-radius: 4px;
+      background: linear-gradient(90deg, #fde8da 25%, #fad5c6 50%, #fde8da 75%);
+      background-size: 1600px 100%;
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+
+    .skel-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+    .skel-label { height: 11px; width: 80px; margin-bottom: .5rem; border-radius: 4px; }
+    .skel-input { height: 46px; border-radius: 10px; }
+    .skel-input-full { height: 46px; border-radius: 10px; margin-bottom: 1rem; }
+
+    .skel-upload {
+      height: 100px;
+      border-radius: 12px;
+      border: 2px dashed #e8e8e8;
+      background: #fafafa;
+    }
+
+    .skel-footer-row {
       display: flex;
-      flex-direction: column;
+      justify-content: flex-end;
       align-items: center;
-      justify-content: center;
       gap: 1rem;
-      min-height: 300px;
-      color: #aaa;
-      font-size: .95rem;
-      font-weight: 700;
+      margin-top: 2rem;
     }
 
-    .iframe-loading-dots {
-      display: flex;
-      gap: .4rem;
+    .skel-btn {
+      height: 46px; width: 150px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffe3d4 25%, #fdd0bb 50%, #ffe3d4 75%);
+      background-size: 1600px 100%;
+      animation: shimmer 1.6s ease-in-out infinite;
     }
 
-    .iframe-loading-dots span {
-      width: 10px; height: 10px;
-      background: linear-gradient(135deg, var(--orange), var(--pink));
-      border-radius: 50%;
-      animation: dotBounce .9s ease-in-out infinite;
-    }
-
-    .iframe-loading-dots span:nth-child(2) { animation-delay: .15s; }
-    .iframe-loading-dots span:nth-child(3) { animation-delay: .3s; }
-
-    @keyframes dotBounce {
-      0%, 80%, 100% { transform: scale(.6); opacity: .4; }
-      40%            { transform: scale(1);  opacity: 1; }
-    }
+    .skel-note { height: 11px; width: 200px; border-radius: 4px; }
 
     /* ── FOOTER ── */
     footer {
@@ -235,10 +269,58 @@
   <section class="jobs-section">
     <div class="jobs-iframe-wrap" id="paycorContainer">
       <div class="iframe-loading" id="iframeLoading">
-        <div class="iframe-loading-dots">
-          <span></span><span></span><span></span>
+
+        <!-- Job header -->
+        <div class="skel-group">
+          <div class="skel skel-job-title"></div>
+          <div class="skel skel-job-meta"></div>
+          <div class="skel skel-job-meta" style="width:28%"></div>
         </div>
-        Loading your application…
+
+        <div class="skel-divider"></div>
+
+        <!-- Personal information -->
+        <div class="skel-group">
+          <div class="skel-section-label"></div>
+          <div class="skel-row">
+            <div>
+              <div class="skel skel-label"></div>
+              <div class="skel skel-input"></div>
+            </div>
+            <div>
+              <div class="skel skel-label"></div>
+              <div class="skel skel-input"></div>
+            </div>
+          </div>
+          <div class="skel skel-label" style="margin-top:.25rem"></div>
+          <div class="skel skel-input-full"></div>
+          <div class="skel skel-label"></div>
+          <div class="skel skel-input-full" style="margin-bottom:0"></div>
+        </div>
+
+        <div class="skel-divider"></div>
+
+        <!-- Resume upload -->
+        <div class="skel-group">
+          <div class="skel-section-label"></div>
+          <div class="skel-upload"></div>
+        </div>
+
+        <div class="skel-divider"></div>
+
+        <!-- Additional questions -->
+        <div class="skel-group" style="margin-bottom:0">
+          <div class="skel-section-label"></div>
+          <div class="skel skel-label" style="width:90%;margin-bottom:.5rem"></div>
+          <div class="skel skel-input-full" style="height:80px;margin-bottom:0"></div>
+        </div>
+
+        <!-- Submit row -->
+        <div class="skel-footer-row">
+          <div class="skel skel-note"></div>
+          <div class="skel-btn"></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -278,7 +360,10 @@
         observer.disconnect();
         iframe.addEventListener("load", () => {
           const loader = document.getElementById("iframeLoading");
-          if (loader) loader.style.display = "none";
+          if (loader) {
+            loader.classList.add("hidden");
+            setTimeout(() => loader.remove(), 400);
+          }
         });
       }
     });
