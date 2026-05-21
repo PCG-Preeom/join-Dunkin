@@ -1,6 +1,6 @@
 const https = require('https');
 
-const CLIENT_ID = '8a7883d09be7cb01019c10eb04fa0f97';
+const CLIENT_ID = process.env.PAYCOR_CLIENT_ID;
 
 const URLS = [
   `https://recruitingbypaycor.com/career/CareerHome.action?clientId=${CLIENT_ID}`,
