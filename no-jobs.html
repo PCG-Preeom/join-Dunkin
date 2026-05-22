@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No Current Openings | People Capital Group</title>
+  <link rel="icon" href="icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF671F;
+      --pink:   #DA1884;
+      --dark:   #1D1D1B;
+      --light:  #FFF8F2;
+      --peach:  #FFE8D6;
+      --gray:   #F9F4F0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fff;
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      box-shadow: 0 2px 16px rgba(255,103,31,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      animation: logoBounce 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    @keyframes logoBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30%       { transform: translateY(-6px) rotate(-6deg); }
+      60%       { transform: translateY(-3px) rotate(4deg); }
+    }
+
+    .nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-logo span { color: var(--dark); font-size: 1.1rem; font-weight: 800; }
+    .nav-logo span em { color: var(--orange); font-style: normal; }
+
+    nav a.nav-link {
+      color: #555;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+    nav a.nav-link:hover { color: var(--orange); }
+
+    /* ── HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 3.5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.5' fill='%23ffffff' fill-opacity='0.09'/%3E%3C/svg%3E") repeat;
+    }
+
+    /* floating emojis in header */
+    .header-floats {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .float-item {
+      position: absolute;
+      opacity: 0.16;
+      animation: heroFloat ease-in-out infinite;
+      user-select: none;
+      line-height: 1;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px) rotate(-5deg); }
+      50%       { transform: translateY(-20px) rotate(8deg); }
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto .9rem;
+      font-size: 1.6rem;
+      animation: iconPop .6s ease both, iconFloat 4s ease-in-out 1s infinite;
+    }
+
+    @keyframes iconPop {
+      from { opacity: 0; transform: scale(.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      margin-bottom: .5rem;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      opacity: .9;
+      font-weight: 600;
+    }
+
+    /* ── WAVE ── */
+    .wave {
+      background: var(--light);
+      line-height: 0;
+      margin-top: -1px;
+    }
+    .wave svg { display: block; width: 100%; }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      flex: 1;
+      padding: 2.5rem 2rem 3rem;
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* staggered entrance animations */
+    .anim-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .5s ease forwards;
+    }
+    .anim-in:nth-child(1) { animation-delay: .1s; }
+    .anim-in:nth-child(2) { animation-delay: .25s; }
+    .anim-in:nth-child(3) { animation-delay: .4s; }
+    .anim-in:nth-child(4) { animation-delay: .55s; }
+
+    .location-card {
+      background: var(--light);
+      border: 2px solid var(--peach);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .location-pin {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      animation: pinBounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pinBounce {
+      0%, 100% { transform: translateY(0); }
+      40%       { transform: translateY(-6px); }
+      60%       { transform: translateY(-3px); }
+    }
+
+    .location-info h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: .15rem;
+    }
+
+    .location-info p {
+      font-size: .85rem;
+      color: #999;
+      font-weight: 600;
+    }
+
+    /* ── MESSAGE BOX ── */
+    .message-box {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    .message-box h2 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: .75rem;
+    }
+
+    .message-box p {
+      font-size: .95rem;
+      color: #666;
+      line-height: 1.7;
+      font-weight: 600;
+      max-width: 460px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── BUTTONS ── */
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .95rem;
+      padding: .85rem 2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(255,103,31,.35);
+      transition: transform .15s, box-shadow .15s;
+      animation: btnPulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes btnPulse {
+      0%, 100% { box-shadow: 0 4px 16px rgba(255,103,31,.35); }
+      50%       { box-shadow: 0 8px 30px rgba(255,103,31,.55); }
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(255,103,31,.5);
+      animation: none;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .95rem;
+      padding: .85rem 2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 2px solid var(--peach);
+      transition: border-color .2s, color .2s, transform .15s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    /* ── SUGGESTION STRIP ── */
+    .suggestion-strip {
+      background: linear-gradient(135deg, #FFF0E8, #FFE8F5);
+      border: 2px solid var(--peach);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .suggestion-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      animation: heroFloat 4s ease-in-out infinite;
+    }
+
+    .suggestion-text h4 {
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: .2rem;
+    }
+
+    .suggestion-text p {
+      font-size: .82rem;
+      color: #888;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .suggestion-text a {
+      color: var(--orange);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .suggestion-text a:hover { text-decoration: underline; }
+
+    .divider {
+      border: none;
+      border-top: 2px solid var(--peach);
+      margin: 2rem 0;
+    }
+
+    .notify-text {
+      text-align: center;
+      font-size: .85rem;
+      color: #bbb;
+      font-weight: 600;
+    }
+
+    .notify-text a { color: var(--orange); font-weight: 700; text-decoration: none; }
+    .notify-text a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light);
+      border-top: 2px solid var(--peach);
+      color: #888;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon"><img src="icon-512.png" alt="PCG" /></div>
+      <span>People Capital <em>Group</em></span>
+    </a>
+    <a class="nav-link" href="index.html">← Back to Jobs</a>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-content">
+      <div class="header-icon">📋</div>
+      <h1>No Current Openings</h1>
+      <p id="headerSubtitle">We don't have any open roles at this location right now.</p>
+    </div>
+  </div>
+
+  <!-- WAVE -->
+  <div class="wave">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path fill="#FFF8F2" d="M0,25 C480,55 960,5 1440,35 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
+  <!-- CONTENT -->
+  <section class="content">
+
+    <div class="anim-in" id="locationCard" style="display:none;">
+      <div class="location-card">
+        <div class="location-pin">📍</div>
+        <div class="location-info">
+          <h3 id="locationStreet"></h3>
+          <p id="locationCity"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="message-box anim-in">
+      <h2>Not hiring here at the moment</h2>
+      <p>This location doesn't have open positions right now — but we're always growing! Explore other openings across our PA &amp; NJ locations.</p>
+
+      <div class="cta-buttons">
+        <a href="index.html#open-positions" class="btn-primary">✨ See All Open Positions</a>
+        <a href="index.html#locations" class="btn-ghost">← Back to Locations</a>
+      </div>
+    </div>
+
+    <div class="suggestion-strip anim-in">
+      <div class="suggestion-icon">💡</div>
+      <div class="suggestion-text">
+        <h4 id="hiringCount">We have 45 locations hiring!</h4>
+        <p>Positions are available across Philadelphia, Bucks County, Chester County, and New Jersey. <a href="index.html#open-positions">View all open roles →</a></p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <p class="notify-text anim-in">
+      Questions? <a href="mailto:careers@peoplecapitalgroup.com">careers@peoplecapitalgroup.com</a>
+    </p>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
+  </footer>
+
+  <script>
+    const params  = new URLSearchParams(window.location.search);
+    const city    = params.get("city");
+    const street  = params.get("street");
+    const openRoles = parseInt(params.get("openRoles")) || null;
+
+    if (street) {
+      document.getElementById("locationStreet").textContent = street;
+      document.getElementById("locationCity").textContent   = city || "";
+      document.getElementById("locationCard").style.display = "block";
+    }
+
+    if (city) {
+      document.getElementById("headerSubtitle").textContent =
+        `We don't have any open roles at our ${city} location right now.`;
+    }
+
+    if (openRoles !== null) {
+      document.getElementById("hiringCount").textContent =
+        `We have ${openRoles} open role${openRoles !== 1 ? "s" : ""} available right now!`;
+    }
+  </script>
+
+</body>
+</html>

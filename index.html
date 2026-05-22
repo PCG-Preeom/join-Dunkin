@@ -1673,11 +1673,11 @@
                 </div>
                 <div class="address-job-list">${jobItems}</div>`;
               } else {
-                const applyUrl = `apply.html?city=${encodeURIComponent(cityState)}`;
+                const noJobsUrl = `no-jobs.html?city=${encodeURIComponent(cityState)}&street=${encodeURIComponent(getStreet(loc.address))}&openRoles=${liveJobs.length}`;
                 return `
-                <a class="address-row" href="${applyUrl}">
+                <a class="address-row" href="${noJobsUrl}">
                   <span class="address-street">${streetLabel}</span>
-                  <span class="address-arrow">Apply →</span>
+                  <span class="address-arrow">View →</span>
                 </a>`;
               }
             }).join("")}
