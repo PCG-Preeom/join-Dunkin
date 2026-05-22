@@ -25,7 +25,7 @@ function fetchUrl(url) {
       res.on('end', () => resolve({ status: res.statusCode, body: data, url }));
     });
     req.on('error', reject);
-    req.setTimeout(12000, () => { req.destroy(); reject(new Error('timeout')); });
+    req.setTimeout(8000, () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
 
@@ -108,41 +108,49 @@ function parseHtml(html) {
 
 exports.handler = async function (event) {
   const debug = event.queryStringParameters && event.queryStringParameters.debug === '1';
+
+  // Fetch all URLs in parallel — total time = slowest single request, not sum of all
+  const results = await Promise.allSettled(URLS.map(url => fetchUrl(url)));
+
   const errors = [];
 
-  for (const url of URLS) {
-    try {
-      const { status, body } = await fetchUrl(url);
+  for (let i = 0; i < results.length; i++) {
+    const r = results[i];
+    const url = URLS[i];
 
-      if (status !== 200) { errors.push(`${url} → ${status}`); continue; }
-
-      if (debug) {
-        return {
-          statusCode: 200,
-          headers: { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' },
-          body: `URL: ${url}\nStatus: ${status}\n\nFirst 4000 chars:\n${body.slice(0, 4000)}`,
-        };
-      }
-
-      const isAtom = body.includes('<entry') || body.includes('<feed');
-      const jobs   = isAtom ? parseAtom(body) : parseHtml(body);
-
-      if (jobs.length > 0) {
-        return {
-          statusCode: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Cache-Control': 'public, max-age=300',
-          },
-          body: JSON.stringify(jobs),
-        };
-      }
-
-      errors.push(`${url} → 200 but 0 jobs parsed`);
-    } catch (err) {
-      errors.push(`${url} → ${err.message}`);
+    if (r.status === 'rejected') {
+      errors.push(`${url} → ${r.reason.message}`);
+      continue;
     }
+
+    const { status, body } = r.value;
+
+    if (status !== 200) { errors.push(`${url} → ${status}`); continue; }
+
+    if (debug) {
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' },
+        body: `URL: ${url}\nStatus: ${status}\n\nFirst 4000 chars:\n${body.slice(0, 4000)}`,
+      };
+    }
+
+    const isAtom = body.includes('<entry') || body.includes('<feed');
+    const jobs   = isAtom ? parseAtom(body) : parseHtml(body);
+
+    if (jobs.length > 0) {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'public, max-age=300',
+        },
+        body: JSON.stringify(jobs),
+      };
+    }
+
+    errors.push(`${url} → 200 but 0 jobs parsed`);
   }
 
   return {
