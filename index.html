@@ -92,11 +92,17 @@
       padding: .5rem 1.2rem;
       border-radius: 999px;
       text-decoration: none;
-      transition: opacity .2s;
+      transition: transform .2s, box-shadow .2s, background-position .4s;
       box-shadow: 0 4px 12px rgba(255,103,31,0.3);
+      background-size: 200% 100%;
+      background-position: 0% 50%;
     }
 
-    nav a.nav-btn:hover { opacity: .85; }
+    nav a.nav-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 24px rgba(255,103,31,0.45);
+      background-position: 100% 50%;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -396,7 +402,24 @@
     .benefit-card.c4 .benefit-back { background: linear-gradient(315deg, #FF671F, #DA1884); }
     .benefit-card.c5 .benefit-back { background: linear-gradient(315deg, #c9006b, #DA1884); }
 
-    .benefit-icon { font-size: 2.4rem; }
+    .benefit-icon {
+      font-size: 2.4rem;
+      animation: iconFloatDown 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloatDown {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(10px); }
+    }
+
+    @keyframes iconFloatUp {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    .benefit-card:nth-child(even) .benefit-icon {
+      animation: iconFloatUp 3s ease-in-out infinite;
+    }
     .benefit-card h3 { font-size: 1rem; font-weight: 800; color: #fff; }
     .benefit-card p { font-size: .88rem; color: rgba(255,255,255,.92); line-height: 1.65; }
 
@@ -727,7 +750,7 @@
     /* ── ACCORDION ── */
     .locations-grid {
       display: grid;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     .no-results { text-align: center; color: #999; font-weight: 600; padding: 2rem; grid-column: 1 / -1; }
@@ -756,7 +779,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.1rem 1.4rem;
+      padding: 1.25rem 1.5rem;
       cursor: pointer;
       user-select: none;
       transition: background .2s;
@@ -804,7 +827,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: .6rem 1.4rem;
+      padding: .85rem 1.5rem;
       gap: 1rem;
       border-bottom: 1px solid #f8f8f8;
       transition: background .15s, transform .15s;
@@ -1170,6 +1193,10 @@
       .pos-card.bottom-center { grid-column: 1; }
       .stat-divider { display: none; }
       .stats-inner { gap: 1.5rem; }
+      .locations { padding: 3rem 1.25rem; }
+      .locations-grid { gap: 1rem; }
+      .city-header { padding: 1.1rem 1.25rem; }
+      .address-row { padding: .85rem 1.25rem; }
     }
 
     @media (max-width: 860px) {
@@ -1197,8 +1224,8 @@
       <span>People Capital <em>Group</em></span>
     </a>
     <div class="nav-links">
-      <a class="nav-link" href="#jobs">Positions</a>
       <a class="nav-link" href="#locations">📍 Locations</a>
+      <a class="nav-btn" href="jobs.html">Open Positions</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -1206,8 +1233,8 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#jobs">Positions</a>
     <a href="#locations">📍 Locations</a>
+    <a href="jobs.html" class="mobile-apply-btn">Open Positions →</a>
     <a href="apply.html" class="mobile-apply-btn">Apply Now →</a>
   </div>
 
@@ -1230,7 +1257,7 @@
       <h1>Join Our Team</h1>
       <p>We're hiring friendly, motivated people across our Dunkin' locations in PA &amp; NJ. Build your future with flexible schedules, great pay, and a team that feels like family.</p>
       <div class="hero-buttons">
-        <a href="#jobs" class="hero-cta">View Open Roles</a>
+        <a href="jobs.html" class="hero-cta">View Open Roles</a>
         <a href="#locations" class="hero-cta-ghost">See Locations</a>
       </div>
     </div>
@@ -1362,28 +1389,28 @@
     <div class="section-label">Positions Available</div>
     <h2 class="section-title">Find Your Role</h2>
     <div class="jobs-grid">
-      <a class="pos-card p1" href="#open-positions" style="text-decoration:none;">
+      <a class="pos-card p1" href="jobs.html" style="text-decoration:none;">
         <div class="pos-icon">☕</div>
         <div class="pos-info">
           <h3>Crew Member</h3>
           <p>Help guests, prepare food and drinks, and bring great energy every shift.</p>
         </div>
       </a>
-      <a class="pos-card p2" href="#open-positions" style="text-decoration:none;">
+      <a class="pos-card p2" href="jobs.html" style="text-decoration:none;">
         <div class="pos-icon">⭐</div>
         <div class="pos-info">
           <h3>Shift Leader</h3>
           <p>Support the team, lead shifts, and deliver excellent guest service.</p>
         </div>
       </a>
-      <a class="pos-card p3" href="#open-positions" style="text-decoration:none;">
+      <a class="pos-card p3" href="jobs.html" style="text-decoration:none;">
         <div class="pos-icon">🏆</div>
         <div class="pos-info">
           <h3>Assistant Manager</h3>
           <p>Help manage daily operations, coach team members, and drive performance.</p>
         </div>
       </a>
-      <a class="pos-card p4 bottom-center" href="#open-positions" style="text-decoration:none;">
+      <a class="pos-card p4 bottom-center" href="jobs.html" style="text-decoration:none;">
         <div class="pos-icon">🎯</div>
         <div class="pos-info">
           <h3>Restaurant Manager</h3>
@@ -1422,43 +1449,6 @@
     </div>
   </section>
 
-  <!-- LIVE JOBS -->
-  <section class="live-jobs" id="open-positions">
-    <div class="live-jobs-inner">
-      <div class="section-label">Now Hiring</div>
-      <h2 class="section-title">Open Positions</h2>
-
-      <div class="jobs-filter-bar" id="jobsFilterBar" style="display:none;">
-        <select id="roleFilter" class="job-filter-select">
-          <option value="all">All Roles</option>
-          <option value="crew">Crew Member</option>
-          <option value="shift">Shift Leader</option>
-          <option value="manager">Manager</option>
-        </select>
-        <select id="stateFilter" class="job-filter-select">
-          <option value="all">All States</option>
-          <option value="PA">PA</option>
-          <option value="NJ">NJ</option>
-        </select>
-        <select id="cityFilter" class="job-filter-select">
-          <option value="all">All Cities</option>
-        </select>
-      </div>
-
-      <div id="jobsContainer">
-        <div class="jobs-loading">
-          <div class="loading-dots"><span></span><span></span><span></span></div>
-          <p>Loading open positions…</p>
-        </div>
-      </div>
-
-      <div class="jobs-pagination" id="jobsPagination" style="display:none;">
-        <button class="jobs-page-btn" id="jobsPrev">← Prev</button>
-        <span class="jobs-page-info" id="jobsPageInfo"></span>
-        <button class="jobs-page-btn" id="jobsNext">Next →</button>
-      </div>
-    </div>
-  </section>
 
 
   <!-- FOOTER -->
@@ -1810,104 +1800,13 @@
   </script>
 
   <script>
-    const JOBS_PER_PAGE = 10;
-
-    let allJobs     = [];
-    let activeRole  = 'all';
-    let activeState = 'all';
-    let activeCity  = 'all';
-    let currentPage = 1;
-
-    const ROLE_FILTERS = {
-      all:     () => true,
-      crew:    j => j.title.toLowerCase().includes('crew'),
-      shift:   j => j.title.toLowerCase().includes('shift'),
-      manager: j => j.title.toLowerCase().includes('manager'),
-    };
-
-    function getJobState(loc) {
-      const m = loc.match(/\b(PA|NJ)\b/);
-      return m ? m[1] : '';
-    }
-
-    function getJobCity(loc) {
-      const parts = loc.split(',').map(p => p.trim());
-      for (let i = parts.length - 1; i >= 0; i--) {
-        if (/\b(PA|NJ)\b/.test(parts[i]) && i > 0) return parts[i - 1].trim();
-      }
-      return '';
-    }
-
-    function getFilteredJobs() {
-      return allJobs.filter(j =>
-        ROLE_FILTERS[activeRole](j) &&
-        (activeState === 'all' || getJobState(j.location) === activeState) &&
-        (activeCity  === 'all' || getJobCity(j.location).toLowerCase() === activeCity.toLowerCase())
-      );
-    }
-
-    function populateCityDropdown() {
-      const select = document.getElementById('cityFilter');
-      const stateJobs = allJobs.filter(j =>
-        activeState === 'all' || getJobState(j.location) === activeState
-      );
-      const cities = [...new Set(stateJobs.map(j => getJobCity(j.location)).filter(Boolean))].sort();
-      select.innerHTML = `<option value="all">All Cities</option>` +
-        cities.map(c => `<option value="${c}">${c}</option>`).join('');
-      activeCity = 'all';
-    }
-
-    function renderJobs() {
-      const container  = document.getElementById('jobsContainer');
-      const pagination = document.getElementById('jobsPagination');
-      const pageInfo   = document.getElementById('jobsPageInfo');
-      const prevBtn    = document.getElementById('jobsPrev');
-      const nextBtn    = document.getElementById('jobsNext');
-
-      const filtered   = getFilteredJobs();
-      const totalPages = Math.max(1, Math.ceil(filtered.length / JOBS_PER_PAGE));
-      currentPage = Math.min(currentPage, totalPages);
-
-      const paged = filtered.slice((currentPage - 1) * JOBS_PER_PAGE, currentPage * JOBS_PER_PAGE);
-
-      if (!filtered.length) {
-        container.innerHTML = '<p class="jobs-error">No positions match that filter right now.</p>';
-        pagination.style.display = 'none';
-        return;
-      }
-
-      container.innerHTML = paged.map(job => {
-        const idMatch   = job.link.match(/[?&]id=([^&]+)/);
-        const applyHref = idMatch ? `apply.html?gnk=job&gni=${idMatch[1]}` : 'apply.html';
-        return `
-        <div class="job-card">
-          <div class="job-info">
-            <div class="job-title">${toTitleCase(job.title)}</div>
-            ${job.location ? `<div class="job-location">📍 ${job.location}</div>` : ''}
-          </div>
-          <a href="${applyHref}" class="job-apply-btn">Apply Now</a>
-        </div>`;
-      }).join('');
-
-      pagination.style.display = totalPages > 1 ? 'flex' : 'none';
-      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === totalPages;
-    }
-
     async function loadJobs() {
-      const container = document.getElementById('jobsContainer');
       try {
         const res = await fetch('/.netlify/functions/jobs');
         if (!res.ok) throw new Error('fetch failed');
         const jobs = await res.json();
+        if (!jobs.length) return;
 
-        if (!jobs.length) {
-          container.innerHTML = '<p class="jobs-error">No open positions at this time. Check back soon!</p>';
-          return;
-        }
-
-        allJobs  = jobs;
         liveJobs = jobs;
 
         const openRolesStat = document.getElementById('openRolesStat');
@@ -1917,46 +1816,7 @@
         }
 
         renderLocations();
-        populateCityDropdown();
-        renderJobs();
-
-        document.getElementById('jobsFilterBar').style.display = 'flex';
-
-        // Role dropdown
-        document.getElementById('roleFilter').addEventListener('change', e => {
-          activeRole  = e.target.value;
-          currentPage = 1;
-          renderJobs();
-        });
-
-        // State dropdown
-        document.getElementById('stateFilter').addEventListener('change', e => {
-          activeState = e.target.value;
-          currentPage = 1;
-          populateCityDropdown();
-          renderJobs();
-        });
-
-        // City dropdown
-        document.getElementById('cityFilter').addEventListener('change', e => {
-          activeCity  = e.target.value;
-          currentPage = 1;
-          renderJobs();
-        });
-
-        // Pagination
-        document.getElementById('jobsPrev').addEventListener('click', () => {
-          if (currentPage > 1) { currentPage--; renderJobs(); }
-        });
-        document.getElementById('jobsNext').addEventListener('click', () => {
-          if (currentPage < Math.ceil(getFilteredJobs().length / JOBS_PER_PAGE)) {
-            currentPage++; renderJobs();
-          }
-        });
-
-      } catch (err) {
-        container.innerHTML = '<p class="jobs-error">Unable to load positions right now. <a href="apply.html" style="color:var(--orange);font-weight:700;">View all openings →</a></p>';
-      }
+      } catch (err) {}
     }
 
     loadJobs();

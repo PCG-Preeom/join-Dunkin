@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Positions | People Capital Group</title>
+  <link rel="icon" href="icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF671F;
+      --pink:   #DA1884;
+      --dark:   #1D1D1B;
+      --light:  #FFF8F2;
+      --peach:  #FFE8D6;
+      --gray:   #F9F4F0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      box-shadow: 0 2px 16px rgba(255,103,31,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      animation: logoBounce 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    @keyframes logoBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30%       { transform: translateY(-6px) rotate(-6deg); }
+      60%       { transform: translateY(-3px) rotate(4deg); }
+    }
+
+    .nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-logo span { color: var(--dark); font-size: 1.1rem; font-weight: 800; }
+    .nav-logo span em { color: var(--orange); font-style: normal; }
+
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+
+    nav a.nav-link {
+      color: #555;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: .4rem .9rem;
+      border-radius: 999px;
+      transition: color .2s, background .2s;
+    }
+
+    nav a.nav-link:hover,
+    nav a.nav-link.active { color: var(--orange); background: rgba(255,103,31,.1); }
+
+    nav a.nav-btn {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .5rem 1.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 12px rgba(255,103,31,0.3);
+      background-size: 200% 100%;
+      background-position: 0% 50%;
+    }
+
+    nav a.nav-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 24px rgba(255,103,31,0.45);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrap {
+      flex: 1;
+      padding: 2.5rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ── MAIN CARD ── */
+    .jobs-card {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 4px 40px rgba(255,103,31,0.08), 0 1px 8px rgba(0,0,0,0.04);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 600px;
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .jobs-sidebar {
+      background: var(--light);
+      border-right: 2px solid var(--peach);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .sidebar-title {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.15;
+    }
+
+    .sidebar-title em {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    .sidebar-contact {
+      margin-top: auto;
+    }
+
+    .sidebar-contact p {
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #aaa;
+      margin-bottom: .4rem;
+    }
+
+    .sidebar-contact a {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: .9rem;
+      text-decoration: none;
+    }
+
+    .sidebar-contact a:hover { text-decoration: underline; }
+
+    .sidebar-filters {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+
+    .sidebar-filters label {
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #aaa;
+      margin-bottom: .1rem;
+      display: block;
+    }
+
+    .job-filter-select {
+      width: 100%;
+      background: #fff;
+      border: 2px solid var(--peach);
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      padding: .5rem 2rem .5rem .9rem;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23FF671F'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .75rem center;
+    }
+
+    .job-filter-select:focus { border-color: var(--orange); }
+
+    .open-count {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 800;
+      padding: .25rem .8rem;
+      border-radius: 999px;
+    }
+
+    /* ── RIGHT CONTENT ── */
+    .jobs-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .jobs-list {
+      flex: 1;
+      padding: .5rem 0;
+    }
+
+    /* ── JOB ROW ── */
+    .job-row {
+      border-bottom: 1.5px solid #f3f3f3;
+      transition: background .15s;
+      animation: fadeIn .4s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .job-row:last-child { border-bottom: none; }
+    .job-row:hover { background: #fffaf7; }
+
+    .job-row-main {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.4rem 2rem;
+    }
+
+    .job-row-info { flex: 1; min-width: 0; }
+
+    .job-row-category {
+      font-size: .68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--orange);
+      margin-bottom: .35rem;
+    }
+
+    .job-row-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: .4rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .job-row-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .job-meta-tag {
+      font-size: .78rem;
+      font-weight: 700;
+      color: #999;
+    }
+
+    .job-meta-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+
+    .job-row-actions {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-shrink: 0;
+    }
+
+    .job-expand-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid #eee;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      color: #aaa;
+      transition: border-color .2s, color .2s, transform .25s;
+      flex-shrink: 0;
+    }
+
+    .job-expand-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .job-expand-btn.open { transform: rotate(180deg); border-color: var(--orange); color: var(--orange); }
+
+    .job-apply-btn {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .55rem 1.25rem;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(255,103,31,.3);
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .job-apply-btn:hover {
+      opacity: .88;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(255,103,31,.4);
+    }
+
+    /* ── JOB EXPAND PANEL ── */
+    .job-expand-panel {
+      display: none;
+      padding: 0 2rem 1.5rem 2rem;
+      border-top: 1px solid #f3f3f3;
+    }
+
+    .job-expand-panel.open { display: block; }
+
+    .job-expand-panel p {
+      font-size: .88rem;
+      color: #666;
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    /* ── PAGINATION ── */
+    .jobs-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+      border-top: 1.5px solid #f3f3f3;
+    }
+
+    .jobs-page-btn {
+      background: #fff;
+      border: 2px solid var(--peach);
+      color: var(--orange);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .45rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .jobs-page-btn:hover:not(:disabled) { border-color: var(--orange); box-shadow: 0 4px 12px rgba(255,103,31,.15); }
+    .jobs-page-btn:disabled { opacity: .35; cursor: default; }
+    .jobs-page-info { font-size: .85rem; font-weight: 700; color: #aaa; }
+
+    /* ── LOADING / ERROR / EMPTY ── */
+    .jobs-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      gap: 1rem;
+      color: #aaa;
+      font-weight: 600;
+    }
+
+    .loading-dots { display: flex; gap: .5rem; }
+
+    .loading-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: ldBounce .7s infinite alternate;
+    }
+
+    .loading-dots span:nth-child(2) { animation-delay: .15s; background: var(--pink); }
+    .loading-dots span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes ldBounce {
+      from { transform: translateY(0); opacity: .4; }
+      to   { transform: translateY(-10px); opacity: 1; }
+    }
+
+    .jobs-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      text-align: center;
+      color: #bbb;
+      font-weight: 600;
+      gap: .5rem;
+    }
+
+    .jobs-empty strong { color: var(--dark); font-size: 1.1rem; font-weight: 900; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light);
+      border-top: 2px solid var(--peach);
+      color: #888;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 760px) {
+      .page-wrap { padding: 1rem 1rem 3rem; }
+
+      .jobs-card {
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+      }
+
+      .jobs-sidebar {
+        border-right: none;
+        border-bottom: 2px solid var(--peach);
+        padding: 1.75rem 1.5rem;
+        gap: 1.25rem;
+      }
+
+      .sidebar-title { font-size: 1.6rem; }
+      .sidebar-contact { margin-top: 0; }
+
+      .job-row-main { padding: 1.1rem 1.25rem; gap: .75rem; }
+      .job-row-title { font-size: .95rem; }
+      .job-expand-panel { padding: 0 1.25rem 1.25rem; }
+
+      .job-apply-btn { font-size: .78rem; padding: .45rem 1rem; }
+      .job-row-actions { gap: .5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon"><img src="icon-512.png" alt="PCG" /></div>
+      <span>People Capital <em>Group</em></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html#locations">📍 Locations</a>
+      <a class="nav-btn" href="jobs.html">Open Positions</a>
+    </div>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page-wrap">
+    <div class="jobs-card">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="jobs-sidebar">
+        <div>
+          <h1 class="sidebar-title">Our Open<br><em>Roles</em></h1>
+        </div>
+
+        <div id="openCountWrap" style="display:none;">
+          <span class="open-count" id="openCount">0 open</span>
+        </div>
+
+        <div class="sidebar-filters" id="sidebarFilters" style="display:none;">
+          <div>
+            <label>Role</label>
+            <select id="roleFilter" class="job-filter-select">
+              <option value="all">All Roles</option>
+              <option value="crew">Crew Member</option>
+              <option value="shift">Shift Leader</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
+          <div>
+            <label>State</label>
+            <select id="stateFilter" class="job-filter-select">
+              <option value="all">All States</option>
+              <option value="PA">PA</option>
+              <option value="NJ">NJ</option>
+            </select>
+          </div>
+          <div>
+            <label>City</label>
+            <select id="cityFilter" class="job-filter-select">
+              <option value="all">All Cities</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sidebar-contact">
+          <p>Or contact us with</p>
+          <a href="mailto:careers@peoplecapitalgroup.com">careers@peoplecapitalgroup.com</a>
+        </div>
+      </aside>
+
+      <!-- RIGHT CONTENT -->
+      <div class="jobs-content">
+        <div class="jobs-list" id="jobsList">
+          <div class="jobs-loading">
+            <div class="loading-dots"><span></span><span></span><span></span></div>
+            <p>Loading open positions…</p>
+          </div>
+        </div>
+
+        <div class="jobs-pagination" id="jobsPagination" style="display:none;">
+          <button class="jobs-page-btn" id="jobsPrev">← Prev</button>
+          <span class="jobs-page-info" id="jobsPageInfo"></span>
+          <button class="jobs-page-btn" id="jobsNext">Next →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
+  </footer>
+
+  <script>
+    const JOBS_PER_PAGE = 10;
+    let allJobs     = [];
+    let activeRole  = 'all';
+    let activeState = 'all';
+    let activeCity  = 'all';
+    let currentPage = 1;
+
+    function toTitleCase(str) {
+      return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    const ROLE_FILTERS = {
+      all:     () => true,
+      crew:    j => j.title.toLowerCase().includes('crew'),
+      shift:   j => j.title.toLowerCase().includes('shift'),
+      manager: j => j.title.toLowerCase().includes('manager'),
+    };
+
+    function getJobState(loc) {
+      const m = loc.match(/\b(PA|NJ)\b/);
+      return m ? m[1] : '';
+    }
+
+    function getJobCity(loc) {
+      const parts = loc.split(',').map(p => p.trim());
+      for (let i = parts.length - 1; i >= 0; i--) {
+        if (/\b(PA|NJ)\b/.test(parts[i]) && i > 0) return parts[i - 1].trim();
+      }
+      return '';
+    }
+
+    function getFilteredJobs() {
+      return allJobs.filter(j =>
+        ROLE_FILTERS[activeRole](j) &&
+        (activeState === 'all' || getJobState(j.location) === activeState) &&
+        (activeCity  === 'all' || getJobCity(j.location).toLowerCase() === activeCity.toLowerCase())
+      );
+    }
+
+    function populateCityDropdown() {
+      const select = document.getElementById('cityFilter');
+      const stateJobs = allJobs.filter(j =>
+        activeState === 'all' || getJobState(j.location) === activeState
+      );
+      const cities = [...new Set(stateJobs.map(j => getJobCity(j.location)).filter(Boolean))].sort();
+      select.innerHTML = `<option value="all">All Cities</option>` +
+        cities.map(c => `<option value="${c}">${c}</option>`).join('');
+      activeCity = 'all';
+    }
+
+    function renderJobs() {
+      const list       = document.getElementById('jobsList');
+      const pagination = document.getElementById('jobsPagination');
+      const pageInfo   = document.getElementById('jobsPageInfo');
+      const prevBtn    = document.getElementById('jobsPrev');
+      const nextBtn    = document.getElementById('jobsNext');
+
+      const filtered   = getFilteredJobs();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / JOBS_PER_PAGE));
+      currentPage = Math.min(currentPage, totalPages);
+      const paged = filtered.slice((currentPage - 1) * JOBS_PER_PAGE, currentPage * JOBS_PER_PAGE);
+
+      document.getElementById('openCount').textContent =
+        `${filtered.length} open role${filtered.length !== 1 ? 's' : ''}`;
+
+      if (!filtered.length) {
+        list.innerHTML = `<div class="jobs-empty"><strong>No matches</strong><span>Try adjusting your filters.</span></div>`;
+        pagination.style.display = 'none';
+        return;
+      }
+
+      list.innerHTML = paged.map((job, i) => {
+        const idMatch   = job.link.match(/[?&]id=([^&]+)/);
+        const applyHref = idMatch ? `apply.html?gnk=job&gni=${idMatch[1]}` : 'apply.html';
+        const city      = getJobCity(job.location);
+        const state     = getJobState(job.location);
+        const loc       = [city, state].filter(Boolean).join(', ');
+
+        return `
+        <div class="job-row" style="animation-delay:${i * 0.05}s">
+          <div class="job-row-main">
+            <div class="job-row-info">
+              <div class="job-row-category">Open Role</div>
+              <div class="job-row-title">${toTitleCase(job.title)}</div>
+              <div class="job-row-meta">
+                <span class="job-meta-tag">Part / Full Time</span>
+                ${loc ? `<span class="job-meta-dot"></span><span class="job-meta-tag">📍 ${loc}</span>` : ''}
+              </div>
+            </div>
+            <div class="job-row-actions">
+              <button class="job-expand-btn" aria-label="Expand">▼</button>
+              <a href="${applyHref}" class="job-apply-btn">Submit Application ↗</a>
+            </div>
+          </div>
+          <div class="job-expand-panel">
+            <p>Click <strong>Submit Application</strong> to apply for this position at our ${loc || 'Dunkin\''} location. No prior experience required — we provide full training from day one.</p>
+          </div>
+        </div>`;
+      }).join('');
+
+      // expand toggles
+      list.querySelectorAll('.job-expand-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const panel = btn.closest('.job-row').querySelector('.job-expand-panel');
+          const isOpen = panel.classList.toggle('open');
+          btn.classList.toggle('open', isOpen);
+        });
+      });
+
+      pagination.style.display = totalPages > 1 ? 'flex' : 'none';
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+
+    async function loadJobs() {
+      const list = document.getElementById('jobsList');
+      try {
+        const res = await fetch('/.netlify/functions/jobs');
+        if (!res.ok) throw new Error('fetch failed');
+        const jobs = await res.json();
+
+        if (!jobs.length) {
+          list.innerHTML = `<div class="jobs-empty"><strong>No openings right now</strong><span>Check back soon — we're always growing!</span></div>`;
+          return;
+        }
+
+        allJobs = jobs;
+
+        document.getElementById('openCountWrap').style.display = 'block';
+        document.getElementById('sidebarFilters').style.display = 'flex';
+
+        populateCityDropdown();
+        renderJobs();
+
+        document.getElementById('roleFilter').addEventListener('change', e => {
+          activeRole = e.target.value; currentPage = 1; renderJobs();
+        });
+        document.getElementById('stateFilter').addEventListener('change', e => {
+          activeState = e.target.value; currentPage = 1; populateCityDropdown(); renderJobs();
+        });
+        document.getElementById('cityFilter').addEventListener('change', e => {
+          activeCity = e.target.value; currentPage = 1; renderJobs();
+        });
+        document.getElementById('jobsPrev').addEventListener('click', () => {
+          if (currentPage > 1) { currentPage--; renderJobs(); }
+        });
+        document.getElementById('jobsNext').addEventListener('click', () => {
+          if (currentPage < Math.ceil(getFilteredJobs().length / JOBS_PER_PAGE)) {
+            currentPage++; renderJobs();
+          }
+        });
+
+      } catch (err) {
+        list.innerHTML = `<div class="jobs-empty"><strong>Couldn't load positions</strong><span>Please try again shortly.</span></div>`;
+      }
+    }
+
+    loadJobs();
+  </script>
+
+</body>
+</html>
