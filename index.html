@@ -684,14 +684,13 @@
       align-items: center;
       background: linear-gradient(135deg, var(--orange), var(--pink));
       color: #fff;
-      font-size: .7rem;
+      font-size: .68rem;
       font-weight: 800;
-      padding: 2px 10px;
+      padding: 2px 8px;
       border-radius: 999px;
-      margin-left: .6rem;
-      vertical-align: middle;
       white-space: nowrap;
       animation: bubbleFade .3s ease;
+      flex-shrink: 0;
     }
 
     .addr-jobs-bubble {
@@ -779,14 +778,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 1.5rem;
+      padding: 1.1rem 1.25rem;
       cursor: pointer;
       user-select: none;
       transition: background .2s;
+      min-height: 64px;
     }
 
-    .city-header-left { display: flex; align-items: center; gap: .75rem; min-width: 0; }
-    .city-header-right { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+    .city-header-left { display: flex; align-items: center; gap: .6rem; min-width: 0; flex: 1; overflow: hidden; }
+    .city-header-right { display: flex; align-items: center; gap: .4rem; flex-shrink: 0; margin-left: .5rem; }
 
     .city-dot {
       width: 10px; height: 10px;
@@ -795,16 +795,17 @@
       flex-shrink: 0;
     }
 
-    .city-name { font-weight: 800; font-size: 1rem; color: var(--dark); }
+    .city-name { font-weight: 800; font-size: .95rem; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .city-count {
       background: #FFF0E8;
       color: var(--orange);
       white-space: nowrap;
-      font-size: .75rem;
+      font-size: .7rem;
       font-weight: 800;
-      padding: .2rem .65rem;
+      padding: .18rem .55rem;
       border-radius: 999px;
+      flex-shrink: 0;
     }
 
     .city-chevron {
@@ -1876,7 +1877,7 @@
       <a href="jobs.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Open Positions</a>
       <a href="index.html#locations" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Locations</a>
       <a href="faq.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">FAQ</a>
-      <a href="mailto:careers@peoplecapitalgroup.com" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Contact Us</a>
+      <a href="contact.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Contact Us</a>
     </div>
     <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
     <p style="margin-top: .4rem; font-size: .8rem; color: #aaa;">This site is for employment opportunities at People Capital Group's independently owned Dunkin' locations.</p>

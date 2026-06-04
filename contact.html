@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | People Capital Group</title>
+  <link rel="icon" href="icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF671F;
+      --pink:   #DA1884;
+      --dark:   #1D1D1B;
+      --light:  #FFF8F2;
+      --peach:  #FFE8D6;
+      --gray:   #F9F4F0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      box-shadow: 0 2px 16px rgba(255,103,31,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      animation: logoBounce 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    @keyframes logoBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30%       { transform: translateY(-6px) rotate(-6deg); }
+      60%       { transform: translateY(-3px) rotate(4deg); }
+    }
+
+    .nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-logo span { color: var(--dark); font-size: 1.1rem; font-weight: 800; }
+    .nav-logo span em { color: var(--orange); font-style: normal; }
+
+    nav a.nav-link {
+      color: #555;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+
+    nav a.nav-link:hover { color: var(--orange); }
+
+    nav a.nav-btn {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .5rem 1.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 12px rgba(255,103,31,0.3);
+    }
+
+    nav a.nav-btn:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 8px 24px rgba(255,103,31,0.45); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 3.5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.5' fill='%23ffffff' fill-opacity='0.09'/%3E%3C/svg%3E") repeat;
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px;
+      padding: .3rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: .5rem; }
+    .page-header p  { font-size: 1rem; opacity: .9; font-weight: 600; }
+
+    /* ── WAVE ── */
+    .wave { background: var(--light); line-height: 0; margin-top: -1px; }
+    .wave svg { display: block; width: 100%; }
+
+    /* ── MAIN ── */
+    .page-wrap {
+      flex: 1;
+      padding: 2.5rem 2rem 4rem;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 2px solid var(--peach);
+      box-shadow: 0 4px 24px rgba(255,103,31,.07);
+    }
+
+    .form-card h2 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 1.75rem;
+      color: var(--dark);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #888;
+      margin-bottom: .4rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: .8rem 1rem;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--dark);
+      background: var(--gray);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+      appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23FF671F'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(255,103,31,.1);
+      background: #fff;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: .95rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(255,103,31,.35);
+      transition: transform .15s, box-shadow .15s, opacity .2s;
+      margin-top: .5rem;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255,103,31,.45);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ── SUCCESS STATE ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .success-msg .success-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .success-msg h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: .5rem; }
+    .success-msg p  { font-size: .9rem; color: #888; font-weight: 600; }
+
+    /* ── SIDEBAR INFO ── */
+    .contact-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .info-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 2px solid var(--peach);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .info-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    .info-card h4 { font-size: .9rem; font-weight: 900; color: var(--dark); margin-bottom: .3rem; }
+    .info-card p  { font-size: .82rem; color: #888; font-weight: 600; line-height: 1.6; }
+    .info-card a  { color: var(--orange); font-weight: 700; text-decoration: none; }
+    .info-card a:hover { text-decoration: underline; }
+
+    .response-time {
+      background: linear-gradient(135deg, #FFF0E8, #FFE8F5);
+      border: 2px solid var(--peach);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+    }
+
+    .response-time p { font-size: .82rem; color: #888; font-weight: 600; line-height: 1.6; }
+    .response-time strong { color: var(--orange); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light);
+      border-top: 2px solid var(--peach);
+      color: #888;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .form-row  { grid-template-columns: 1fr; }
+      .form-card { padding: 1.75rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon"><img src="icon-512.png" alt="PCG" /></div>
+      <span>People Capital <em>Group</em></span>
+    </a>
+    <div style="display:flex;gap:1.5rem;align-items:center;">
+      <a class="nav-link" href="index.html#locations">📍 Locations</a>
+      <a class="nav-btn" href="jobs.html">Open Positions</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-content">
+      <div class="header-badge">Get In Touch</div>
+      <h1>Contact Us</h1>
+      <p>Have a question? We'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <!-- WAVE -->
+  <div class="wave">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path fill="#FFF8F2" d="M0,25 C480,55 960,5 1440,35 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
+  <!-- MAIN -->
+  <div class="page-wrap">
+
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Send us a message</h2>
+
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
+        <input type="hidden" name="form-name" value="contact" />
+        <p style="display:none;"><input name="bot-field" /></p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="first_name" placeholder="First name" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="last_name" placeholder="Last name" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="Your phone number" />
+        </div>
+
+        <div class="form-group">
+          <label for="reason">Reason for Contact</label>
+          <select id="reason" name="reason" required>
+            <option value="" disabled selected>Select a reason...</option>
+            <option value="job-inquiry">Job / Application Inquiry</option>
+            <option value="interview">Interview Question</option>
+            <option value="general">General Question</option>
+            <option value="feedback">Feedback</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message →</button>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">✅</div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out. We'll get back to you within 1–2 business days.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="contact-sidebar">
+
+      <div class="info-card">
+        <div class="info-icon">📧</div>
+        <div>
+          <h4>Email Us</h4>
+          <p><a href="mailto:careers@peoplecapitalgroup.com">careers@peoplecapitalgroup.com</a></p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div>
+          <h4>Our Locations</h4>
+          <p>We operate 45+ Dunkin' locations across PA & NJ. <a href="index.html#locations">Find one near you →</a></p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">💼</div>
+        <div>
+          <h4>Looking to Apply?</h4>
+          <p>Browse all open roles and submit your application directly. <a href="jobs.html">View open positions →</a></p>
+        </div>
+      </div>
+
+      <div class="response-time">
+        <p>⏱ We typically respond within <strong>1–2 business days</strong>. For urgent hiring questions, email us directly.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+      <a href="jobs.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Open Positions</a>
+      <a href="index.html#locations" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Locations</a>
+      <a href="faq.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">FAQ</a>
+      <a href="contact.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Contact Us</a>
+    </div>
+    <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.submit-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        const data = new FormData(form);
+        await fetch('/', { method: 'POST', body: data });
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } catch {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email us directly.');
+      }
+    });
+  </script>
+
+</body>
+</html>
