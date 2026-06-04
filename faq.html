@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ | People Capital Group</title>
+  <link rel="icon" href="icon-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF671F;
+      --pink:   #DA1884;
+      --dark:   #1D1D1B;
+      --light:  #FFF8F2;
+      --peach:  #FFE8D6;
+      --gray:   #F9F4F0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fff;
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--peach);
+      box-shadow: 0 2px 16px rgba(255,103,31,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      animation: logoBounce 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    @keyframes logoBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30%       { transform: translateY(-6px) rotate(-6deg); }
+      60%       { transform: translateY(-3px) rotate(4deg); }
+    }
+
+    .nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nav-logo span { color: var(--dark); font-size: 1.1rem; font-weight: 800; }
+    .nav-logo span em { color: var(--orange); font-style: normal; }
+
+    nav a.nav-link {
+      color: #555;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+
+    nav a.nav-link:hover { color: var(--orange); }
+
+    nav a.nav-btn {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: .5rem 1.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 12px rgba(255,103,31,0.3);
+    }
+
+    nav a.nav-btn:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 8px 24px rgba(255,103,31,0.45); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 3.5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.5' fill='%23ffffff' fill-opacity='0.09'/%3E%3C/svg%3E") repeat;
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px;
+      padding: .3rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: .5rem; }
+    .page-header p  { font-size: 1rem; opacity: .9; font-weight: 600; }
+
+    /* ── WAVE ── */
+    .wave { background: #fff; line-height: 0; margin-top: -1px; }
+    .wave svg { display: block; width: 100%; }
+
+    /* ── FAQ CONTENT ── */
+    .faq-section {
+      flex: 1;
+      padding: 3rem 2rem 4rem;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .faq-category {
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-category-title {
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--orange);
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--peach);
+    }
+
+    .faq-item {
+      border: 2px solid #eee;
+      border-radius: 14px;
+      margin-bottom: .75rem;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+
+    .faq-item.open { border-color: var(--orange); }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: .98rem;
+      color: var(--dark);
+      user-select: none;
+      gap: 1rem;
+      transition: background .15s;
+    }
+
+    .faq-item.open .faq-question { background: #fffaf7; }
+
+    .faq-chevron {
+      font-size: .85rem;
+      color: #aaa;
+      transition: transform .25s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--orange); }
+
+    .faq-answer {
+      display: none;
+      padding: 1rem 1.4rem 1.2rem;
+      font-size: .9rem;
+      color: #666;
+      font-weight: 600;
+      line-height: 1.7;
+      border-top: 1.5px solid #f3f3f3;
+      animation: fadeUp .2s ease both;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ── STILL HAVE QUESTIONS ── */
+    .still-questions {
+      background: linear-gradient(135deg, var(--light), #fff);
+      border: 2px solid var(--peach);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .still-questions h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: .5rem; }
+    .still-questions p  { font-size: .9rem; color: #888; font-weight: 600; margin-bottom: 1.5rem; }
+
+    .still-questions a {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff;
+      font-weight: 800;
+      font-size: .9rem;
+      padding: .75rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(255,103,31,.3);
+      transition: opacity .2s, transform .15s;
+    }
+
+    .still-questions a:hover { opacity: .85; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--light);
+      border-top: 2px solid var(--peach);
+      color: #888;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon"><img src="icon-512.png" alt="PCG" /></div>
+      <span>People Capital <em>Group</em></span>
+    </a>
+    <div style="display:flex;gap:1.5rem;align-items:center;">
+      <a class="nav-link" href="index.html#locations">📍 Locations</a>
+      <a class="nav-btn" href="jobs.html">Open Positions</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-content">
+      <div class="header-badge">Help Center</div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Everything you need to know before applying.</p>
+    </div>
+  </div>
+
+  <!-- WAVE -->
+  <div class="wave">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path fill="#ffffff" d="M0,25 C480,55 960,5 1440,35 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+
+    <div class="faq-category">
+      <div class="faq-category-title">Getting Started</div>
+
+      <div class="faq-item">
+        <div class="faq-question">Do I need experience to apply? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">No experience needed at all. We provide full training from day one — all you need is a positive attitude and willingness to learn.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How do I apply? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Browse open positions on our <a href="jobs.html" style="color:var(--orange);font-weight:700;">Jobs page</a>, click "Submit Application" on a role you like, and fill out the short form. Takes about 5 minutes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How soon will I hear back after applying? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">We typically reach out within 2–3 business days. Most candidates are interviewed and hired within one week of applying.</div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <div class="faq-category-title">Pay & Hours</div>
+
+      <div class="faq-item">
+        <div class="faq-question">What are the pay rates? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Pay starts competitively at $13–$16/hr depending on the role, and increases with performance reviews. Shift Leaders and Managers earn more, and we offer regular raises for strong performers.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What hours and shifts are available? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">We offer morning, afternoon, evening, and weekend shifts. Both full-time and part-time positions are available — we work around your schedule as much as possible.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Are there any benefits? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Yes — free Dunkin' beverages and food discounts on every shift, flexible scheduling, and competitive pay with regular performance reviews.</div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <div class="faq-category-title">Growth & Opportunities</div>
+
+      <div class="faq-item">
+        <div class="faq-question">Are there opportunities to move up? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Absolutely — we promote from within whenever possible. Many of our Shift Leaders and Managers started as Crew Members and worked their way up.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I work at multiple locations? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Yes! With 45+ locations across PA and NJ, there are plenty of options. Talk to your manager about transfer or multi-location opportunities.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you hire students or people looking for part-time work? <span class="faq-chevron">▼</span></div>
+        <div class="faq-answer">Absolutely — we love working with students. We offer flexible scheduling that can work around classes and exams. Many of our crew members are current college students.</div>
+      </div>
+    </div>
+
+    <!-- STILL HAVE QUESTIONS -->
+    <div class="still-questions">
+      <h3>Still have questions?</h3>
+      <p>We're happy to help — reach out and we'll get back to you as soon as possible.</p>
+      <a href="mailto:careers@peoplecapitalgroup.com">Email Us →</a>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+      <a href="jobs.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Open Positions</a>
+      <a href="index.html#locations" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Locations</a>
+      <a href="faq.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">FAQ</a>
+      <a href="mailto:careers@peoplecapitalgroup.com" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Contact Us</a>
+    </div>
+    <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

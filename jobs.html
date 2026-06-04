@@ -128,11 +128,13 @@
     .jobs-sidebar {
       background: var(--light);
       border-right: 2px solid var(--peach);
+    }
+
+    .sidebar-inner {
       padding: 2.5rem 2rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
-      align-self: start;
       position: sticky;
       top: 64px;
     }
@@ -293,6 +295,12 @@
       color: var(--orange);
       background: rgba(255,103,31,0.08);
       border-color: rgba(255,103,31,0.2);
+    }
+
+    .job-meta-tag.pay {
+      color: #2a9d5c;
+      background: rgba(42,157,92,0.08);
+      border-color: rgba(42,157,92,0.2);
     }
 
     .job-meta-dot { display: none; }
@@ -492,6 +500,7 @@
 
       <!-- LEFT SIDEBAR -->
       <aside class="jobs-sidebar">
+        <div class="sidebar-inner">
         <div>
           <h1 class="sidebar-title">Our Open<br><em>Roles</em></h1>
         </div>
@@ -529,6 +538,7 @@
         <div class="sidebar-contact">
           <p>Or contact us with</p>
           <a href="mailto:careers@peoplecapitalgroup.com">careers@peoplecapitalgroup.com</a>
+        </div>
         </div>
       </aside>
 
@@ -643,6 +653,7 @@
               <div class="job-row-title">${toTitleCase(job.title)}</div>
               <div class="job-row-meta">
                 <span class="job-meta-tag">Part / Full Time</span>
+                <span class="job-meta-tag pay">💰 $13–$16/hr</span>
                 ${loc ? `<span class="job-meta-tag location">📍 ${loc}</span>` : ''}
               </div>
             </div>
