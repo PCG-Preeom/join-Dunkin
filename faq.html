@@ -73,12 +73,15 @@
     nav a.nav-link {
       color: #555;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
-      transition: color .2s;
+      padding: .4rem .9rem;
+      border-radius: 999px;
+      transition: color .2s, background .2s;
     }
 
-    nav a.nav-link:hover { color: var(--orange); }
+    nav a.nav-link:hover,
+    nav a.nav-link.active { color: var(--orange); background: rgba(255,103,31,.1); }
 
     nav a.nav-btn {
       background: linear-gradient(135deg, var(--orange), var(--pink));
@@ -254,6 +257,37 @@
     }
 
     footer strong { color: var(--orange); }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links a {
+      color: var(--orange);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .85rem;
+      transition: color .15s;
+    }
+
+    .footer-links a:hover { color: var(--pink); text-decoration: underline; }
+
+    a:focus-visible, button:focus-visible, select:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -265,7 +299,9 @@
       <span>People Capital <em>Group</em></span>
     </a>
     <div style="display:flex;gap:1.5rem;align-items:center;">
-      <a class="nav-link" href="index.html#locations">📍 Locations</a>
+      <a class="nav-link" href="index.html#locations">Locations</a>
+      <a class="nav-link active" href="faq.html">FAQ</a>
+      <a class="nav-link" href="contact.html">Contact</a>
       <a class="nav-btn" href="jobs.html">Open Positions</a>
     </div>
   </nav>
@@ -351,11 +387,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem;">
-      <a href="jobs.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Open Positions</a>
-      <a href="index.html#locations" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Locations</a>
-      <a href="faq.html" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">FAQ</a>
-      <a href="mailto:careers@peoplecapitalgroup.com" style="color:var(--orange);font-weight:700;text-decoration:none;font-size:.85rem;">Contact Us</a>
+    <div class="footer-links">
+      <a href="jobs.html">Open Positions</a>
+      <a href="index.html#locations">Locations</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
     </div>
     <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
   </footer>

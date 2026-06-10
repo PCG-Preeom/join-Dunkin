@@ -29,9 +29,16 @@
       flex-direction: column;
     }
 
+    ::selection {
+      background: var(--orange);
+      color: #fff;
+    }
+
     /* ── NAV ── */
     nav {
-      background: #fff;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 2px solid var(--peach);
       box-shadow: 0 2px 16px rgba(255,103,31,0.07);
       display: flex;
@@ -234,9 +241,12 @@
     /* ── JOB ROW ── */
     .job-row {
       border-bottom: 1.5px solid #f3f3f3;
-      transition: background .15s;
+      border-left: 3px solid transparent;
+      transition: background .15s, border-left-color .15s;
       animation: fadeIn .4s ease both;
     }
+
+    .job-row:hover { border-left-color: var(--orange); }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
@@ -295,12 +305,6 @@
       color: var(--orange);
       background: rgba(255,103,31,0.08);
       border-color: rgba(255,103,31,0.2);
-    }
-
-    .job-meta-tag.pay {
-      color: #2a9d5c;
-      background: rgba(42,157,92,0.08);
-      border-color: rgba(42,157,92,0.2);
     }
 
     .job-meta-dot { display: none; }
@@ -452,6 +456,37 @@
 
     footer strong { color: var(--orange); }
 
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links a {
+      color: var(--orange);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .85rem;
+      transition: color .15s;
+    }
+
+    .footer-links a:hover { color: var(--pink); text-decoration: underline; }
+
+    a:focus-visible, button:focus-visible, select:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 760px) {
       .page-wrap { padding: 1rem 1rem 3rem; }
@@ -489,7 +524,9 @@
       <span>People Capital <em>Group</em></span>
     </a>
     <div class="nav-links">
-      <a class="nav-link" href="index.html#locations">📍 Locations</a>
+      <a class="nav-link" href="index.html#locations">Locations</a>
+      <a class="nav-link" href="faq.html">FAQ</a>
+      <a class="nav-link" href="contact.html">Contact</a>
       <a class="nav-btn" href="jobs.html">Open Positions</a>
     </div>
   </nav>
@@ -563,6 +600,12 @@
 
   <!-- FOOTER -->
   <footer>
+    <div class="footer-links">
+      <a href="jobs.html">Open Positions</a>
+      <a href="index.html#locations">Locations</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
     <p>&copy; 2026 <strong>People Capital Group</strong> &middot; All rights reserved.</p>
   </footer>
 
@@ -653,7 +696,6 @@
               <div class="job-row-title">${toTitleCase(job.title)}</div>
               <div class="job-row-meta">
                 <span class="job-meta-tag">Part / Full Time</span>
-                <span class="job-meta-tag pay">💰 $13–$16/hr</span>
                 ${loc ? `<span class="job-meta-tag location">📍 ${loc}</span>` : ''}
               </div>
             </div>
